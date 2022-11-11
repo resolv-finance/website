@@ -1,0 +1,7 @@
+body { background:linear-gradient(180deg, #111, #333 100px); max-width:960px; margin:0 auto; padding:0; color:#eee; font-family:sans-serif; min-height:100vh;}
+.hidden { display:none; }
+
+header { display:flex; align-items:center; }
+header menu { list-style:none; display:flex; }
+header menu a { color:#ccc; font-size: 120%; padding: 10px 20px;}
+header menu a:hover { color:#fff; }
