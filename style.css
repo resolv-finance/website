@@ -1,7 +1,129 @@
-body { background:linear-gradient(180deg, #111, #333 100px); max-width:960px; margin:0 auto; padding:0; color:#eee; font-family:sans-serif; min-height:100vh;}
-.hidden { display:none; }
+body {
 
-header { display:flex; align-items:center; }
-header menu { list-style:none; display:flex; }
-header menu a { color:#ccc; font-size: 120%; padding: 10px 20px;}
-header menu a:hover { color:#fff; }
+    /*Background Gradient*/
+    background: transparent url('Assets/Images/Gradient Background.png') 0% 0% no-repeat padding-box;
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+}
+
+/*adjusting line height*/
+.mainBlock {
+    text-align: left;
+    padding-left: 160px;
+    line-height: 1.5em;
+}
+
+.firstLine {
+    font-family: raleway, sans-serif;
+    font-weight: 700;
+    color: white;
+    font-size: 70px;
+}
+
+.secondLine {
+    font-family: raleway, sans-serif;
+    font-weight: 700;
+    color: white;
+    font-size: 70px;
+}
+
+.hidden {
+    display: none;
+}
+
+header .logo {
+    display: flex;
+    padding-left: 155px;
+}
+
+header img {
+    float: left;
+    padding-top: 22px;
+    width: 50px;
+    height: 50px;
+
+}
+
+header .logo .companyName {
+    display: flex;
+    position: relative;
+    font-family: raleway, sans-serif;
+    font-weight: 700;
+    color: white;
+    font-size: 40px;
+
+    opacity: 1;
+}
+
+.explainerParagraph p {
+    top: 541px;
+    left: 160px;
+    padding-left: 155px;
+    width: 700px;
+    height: 111px;
+    text-align: left;
+    font: normal normal 600 27px/40px Raleway;
+    letter-spacing: 0px;
+    color: #BFBFBF;
+    opacity: 1;
+}
+
+/*Email form - Specify laterd*/
+form {
+    margin-top: 5em;
+    margin-left: 9em;
+    padding-left: 1em;
+
+    /* This bit sets up the horizontal layout */
+    display: flex;
+    flex-direction: row;
+    border-radius: 50px;
+    border: 4px solid #FFFFFF;
+    width: 600px;
+    height: 55px;
+}
+
+#email {
+
+    background: transparent;
+    border: none;
+
+    text-align: left;
+    font: normal normal 600 29px/34px Raleway;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+#email:focus {
+    outline: none;
+}
+
+.submitButton {
+    display: inline-block;
+    position: relative;
+    margin-top: .2em;
+    margin-left: 13em;
+
+}
+
+.submitButton input[type="submit"] {
+    padding-left: 2em;
+    height: 3.5em;
+    width: 3.5em;
+    border-radius: 50%;
+    border: none;
+    background: #39A0EF 0% 0% no-repeat padding-box;
+
+}
+
+.submitButton .fa {
+    display: inline-block;
+    position: absolute;
+    color: #FFFFFF;
+    left: .6em;
+    top: .2em;
+}
