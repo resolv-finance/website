@@ -4,35 +4,11 @@ body {
     background: transparent url('Assets/Images/Gradient Background.png') 0% 0% no-repeat padding-box;
     opacity: 1;
     width: 100%;
-    height: 100%;
-    overflow: hidden;
+
+    overflow: auto;
     margin: 0;
 }
 
-/*adjusting line height*/
-.mainBlock {
-    text-align: left;
-    padding-left: 160px;
-    line-height: 1.5em;
-}
-
-.firstLine {
-    font-family: raleway, sans-serif;
-    font-weight: 700;
-    color: white;
-    font-size: 70px;
-}
-
-.secondLine {
-    font-family: raleway, sans-serif;
-    font-weight: 700;
-    color: white;
-    font-size: 70px;
-}
-
-.hidden {
-    display: none;
-}
 
 header .logo {
     display: flex;
@@ -58,22 +34,57 @@ header .logo .companyName {
     opacity: 1;
 }
 
-.explainerParagraph p {
-    top: 541px;
-    left: 160px;
-    padding-left: 155px;
-    width: 700px;
-    height: 111px;
+.hidden {
+    display: none;
+}
+
+/*adjusting line height*/
+.mainBlock {
+    text-align: left;
+    padding-left: 160px;
+    line-height: 1.5em;
+}
+
+.firstLine {
+    font-family: raleway, sans-serif;
+    font-weight: 700;
+    color: white;
+    font-size: 70px;
+}
+
+.secondLine {
+    font-family: raleway, sans-serif;
+    font-weight: 700;
+    color: white;
+    font-size: 70px;
+}
+
+
+
+
+
+
+.explainerParagraph {
+    top: 500px;
+    left: 165px;
+    margin-left: 155px;
+    width: 550px;
+    
     text-align: left;
     font: normal normal 600 27px/40px Raleway;
+    font-size: 20px;
     letter-spacing: 0px;
     color: #BFBFBF;
     opacity: 1;
 }
 
+.explainerParagraph p{
+    line-height: 150%;
+}
+
 /*Email form - Specify laterd*/
 form {
-    margin-top: 5em;
+    margin-top: 1.5em;
     margin-left: 9em;
     padding-left: 1em;
 
@@ -86,6 +97,24 @@ form {
     height: 55px;
 }
 
+#wrappedToken {
+float: right;
+margin-top: -5%;
+width: 650px;
+height: 650px;
+opacity: 1;
+}
+
+.aligningPageContent::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.aligningPageContent
+{
+    margin-top: 7%;
+}
 #email {
 
     background: transparent;
@@ -93,6 +122,7 @@ form {
 
     text-align: left;
     font: normal normal 600 29px/34px Raleway;
+    font-size: 20px;
     letter-spacing: 0px;
     color: #FFFFFF;
     opacity: 1;
@@ -106,7 +136,7 @@ form {
     display: inline-block;
     position: relative;
     margin-top: .2em;
-    margin-left: 13em;
+    margin-left: 19.5em;
 
 }
 
