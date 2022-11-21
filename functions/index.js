@@ -29,9 +29,7 @@ async function addEmail(email) {
 }
 
 function validateEmail(email) {
-  const re =
-    /^(([^&lt;&gt;()[\\]\\\\.,;:\\s@&quot;]+(\\.[^&lt;&gt;()[\\]\\\\.,;:\\s@&quot;]+)*)|(&quot;.+&quot;))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email).toLowerCase());
+  return email.indexOf('@') !== -1;
 }
 
 module.exports.handler = async function (event, context) {
