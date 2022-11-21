@@ -119,7 +119,7 @@ opacity: 1;
 
     background: transparent;
     border: none;
-
+    width: 91%;
     text-align: left;
     font: normal normal 600 29px/34px Raleway;
     font-size: 20px;
@@ -135,25 +135,40 @@ opacity: 1;
 .submitButton {
     display: inline-block;
     position: relative;
-    margin-top: .2em;
-    margin-left: 19.5em;
-
 }
 
-.submitButton input[type="submit"] {
-    padding-left: 2em;
-    height: 3.5em;
-    width: 3.5em;
+/* Submit button */
+
+#submit {
+    margin-top: 6%;
+    display: inline-block;
+    height: 2.3em;
+    min-width: 2.3em;
     border-radius: 50%;
     border: none;
-    background: #39A0EF 0% 0% no-repeat padding-box;
 
+    background: #39A0EF 0% 0% no-repeat padding-box;
+    text-align: center;
+    font-family: raleway, sans-serif;
+    font-size: 125%;
+    font-weight: bold;
+    color: #FFFFFF;
+    
+    opacity: 0.7;
+}
+#submit:hover
+{
+    height: 2.3em;
+    min-width: 2.3em;
+    font-size: 125%;
+  font-weight: bold;
+  opacity: 1;
+  background-color: #39A0EF;
+  
 }
 
-.submitButton .fa {
-    display: inline-block;
-    position: absolute;
-    color: #FFFFFF;
-    left: .6em;
-    top: .2em;
+.btn-blue:active
+{
+  background-color: #39A0EF;
+  border: 20% #ffffff solid;
 }

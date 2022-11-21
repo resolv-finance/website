@@ -1,0 +1,17 @@
+{
+  "name": "website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "functions:dev": "netlify-lambda serve functions/index"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@notionhq/client": "^2.2.2",
+    "mailgun-js": "^0.22.0",
+    "netlify-lambda": "^2.0.15"
+  }
+}

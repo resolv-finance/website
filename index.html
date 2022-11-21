@@ -5,12 +5,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Resolv Finance</title>
+  <!--Scripts-->
+  <script src="index.js"></script>
   <!-- Add font library -->
   <link rel="stylesheet" href="https://use.typekit.net/xwo3ven.css">
-  <!-- Add icon library -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Add icon library **Delete if not in Use**-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="style.css">
-
+  
+  
 </head>
 
 <body>
@@ -45,20 +49,29 @@
 </div>
 </div>
   <!--Email Input Box-->
-  <form>
-    <input type="email" id="email" name="email" placeholder="Enter your email here"> </input>
-    <span class="submitButton">
-      <i class="fa fa-angle-right fa-2x" aria-hidden="true"></i>
-      <input type="submit" id="submit" name="submit" value="" onclick="" />
-    </span>
+  <form id="form">
+    <input type="email" id="email" name="email" placeholder="Enter your email here" autocomplete="off"> </input>
+    <div id="feedback-box" class="invalid-feedback">
+      Please enter a valid email
+  </div>
+  <div class="submitButton">
+      <button type="button" id="submit" onclick="registerUser()">></button>
+      
+    </div>
   </form>
+  <!--See if this breaks anything-->
+  <div id="success-box" class="alert alert-success d-none">
+    Thanks for subscribing to our newsletter.
+  </div>
+  <div id="error-box" class="alert alert-danger d-none">
+    There was some problem adding your email.
+  </div>
 
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
-
-  <script src="index.js"></script>
 </body>
 
 </html>
