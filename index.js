@@ -5,7 +5,6 @@ const validateEmail = (email) => {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
 };
-//document.getElementById("submit2").addEventListener("click", testPrint());
 
 async function registerUser() {
   const form = document.getElementById('form');
@@ -28,7 +27,7 @@ headers.append('Content-Type', 'application/json');
     body: JSON.stringify({email}),
   };
 
-  const response = await fetch('/.netlify/functions/index.js', options);
+  const response = await fetch('functions/index', options);
   
   if (response.ok) {
     form.classList.add('d-none');
