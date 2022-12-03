@@ -23,7 +23,7 @@ async function registerUser() {
     body: JSON.stringify({email}),
   };
 
-  const response = await fetch('${process.env.URL}/.netlify/functions/index', options);
+  const response = await fetch('/.netlify/functions/index', options);
   
   if (response.ok) {
     form.classList.add('d-none');
