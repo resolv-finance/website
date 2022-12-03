@@ -3,11 +3,11 @@ const validateEmail = (email) => {
 };
 
 async function registerUser() {
-  const form = document.getElementById('form');
+  const form = document.getElementById('input');
   const successBox = document.getElementById('success-box');
   const errorBox = document.getElementById('error-box');
   const feedbackBox = document.getElementById('feedback-box');
-  const email = document.getElementsByName('email')[0].value;
+  const email = document.getElementById('email-input').value;
 
   if (!validateEmail(email)) {
     feedbackBox.classList.add('d-block');
@@ -15,7 +15,7 @@ async function registerUser() {
   }
  
   const headers = new Headers();
-headers.append('Content-Type', 'application/json');
+  headers.append('Content-Type', 'application/json');
   
   const options = {
     method: 'POST',
@@ -23,11 +23,12 @@ headers.append('Content-Type', 'application/json');
     body: JSON.stringify({email}),
   };
 
-  const response = await fetch('.netlify/functions/index', options);
+  const response = await fetch('/.netlify/functions/index', options);
   
   if (response.ok) {
     form.classList.add('d-none');
     successBox.classList.remove('d-none');
+    feedbackBox.classList.add('d-none');
   }
   else {
     form.classList.add('d-none');
