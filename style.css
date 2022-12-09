@@ -129,27 +129,11 @@ body {
     
     opacity: 0.7;
 }
-#sumbitBtn
-{
-    
-    height: 4.5vh;
-    width: 3.3vw;
-    display: inline-block;
-    margin-left: -9%;
-    margin-top: 1%;
-    border-radius: 50%;
-    background: #39A0EF;
-    font-family: raleway, sans-serif;
-    font-size: 125%;
-    text-align: center;
-    font-weight: bold;
-    color: #FFFFFF;
-}
 
 #submit:hover
 {
-    height: 2.3em;
-    min-width: 2.3em;
+    height: 2.3rem;
+    min-width: 2.3rem;
     font-size: 125%;
   font-weight: bold;
   opacity: 1;
@@ -157,4 +141,33 @@ body {
   
 }
 
+form.loading #submit:after {
+  content: " ";
+  width: 1.5rem;
+  height: 1.5rem;
+  background: #fff;
+  border-radius: 3px;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -0.75rem;
+  margin-left: -0.75rem;
+  -webkit-animation:spin 4s linear infinite;
+  -moz-animation:spin 4s linear infinite;
+  animation:spin 4s linear infinite;
+}
+
+@-moz-keyframes spin {
+    100% { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform:rotate(360deg);
+    }
+}
 

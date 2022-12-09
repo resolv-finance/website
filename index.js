@@ -3,7 +3,8 @@ const validateEmail = (email) => {
 };
 
 async function registerUser() {
-  const form = document.getElementById('input');
+  const form = document.querySelector('form');
+  const input = document.getElementById('input');
   const successBox = document.getElementById('success-box');
   const errorBox = document.getElementById('error-box');
   const feedbackBox = document.getElementById('feedback-box');
@@ -23,15 +24,17 @@ async function registerUser() {
     body: JSON.stringify({email}),
   };
 
+  form.classList.add('loading');
   const response = await fetch('/.netlify/functions/index', options);
   
   if (response.ok) {
-    form.classList.add('d-none');
+    input.classList.add('d-none');
     successBox.classList.remove('d-none');
     feedbackBox.classList.add('d-none');
   }
   else {
-    form.classList.add('d-none');
+    input.classList.add('d-none');
     errorBox.classList.remove('d-none');
   }
+  form.classList.remove('loading');
 }
