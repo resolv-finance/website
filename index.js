@@ -37,4 +37,5 @@ async function registerUser() {
     errorBox.classList.remove('d-none');
   }
   form.classList.remove('loading');
+  feedbackBox.classList.remove('d-block');
 }
