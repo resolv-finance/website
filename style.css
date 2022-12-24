@@ -6,7 +6,6 @@ body {
     
     opacity: 1;
     width: 100%;
-    height: 100%;
 
     overflow: auto;
     margin: 0;
@@ -26,9 +25,7 @@ body {
     opacity: 1;
 }
 
-.hidden {
-    display: none;
-}
+
 
 #wrappedToken {
     max-height: 38.625rem; 
@@ -76,10 +73,6 @@ body {
     display: table;
 }
 
-.aligningPageContent
-{
-    margin-top: 3%;
-}
 #email {
 
     background: transparent;
