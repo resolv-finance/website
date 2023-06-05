@@ -146,7 +146,7 @@ form.loading #submit:after {
   background: #fff;
   border-radius: 3px;
   display: block;
-  position: abolute;
+  position: absolute;
   top: 50%;
   left: 50%;
   margin-top: -0.75rem;
