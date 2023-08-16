@@ -1,0 +1,13 @@
+export { default as ArrowsIcon } from "./Arrows Icon.png";
+export { default as BlackArrowsIcon } from "./Black Arrows Icon.png";
+export { default as CheckIcon } from "./Check Icon.png";
+export { default as CircleArrowIcon } from "./Circle Arrow Icon.png";
+export { default as CongratsBox } from "./Congrats box.png";
+export { default as GoodNewsBox } from "./Good news box.png";
+export { default as Logo } from "./logo.png";
+export { default as ProtectBox } from "./Protect your crypto screen.png";
+export { default as ResolvButton } from "./Resolv button close up.png";
+export { default as ReturnStolenBox } from "./Return stolen funds screen.png";
+export { default as ShieldIcon } from "./Shield Icon.png";
+export { default as SwapTokensBox } from "./Swap your tokens screen.png";
+export { default as WalletIcon } from "./wallet.png";
