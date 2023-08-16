@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resolv Finance</title>
+  <!--Scripts-->
+  <script src="index.js"></script>
+  <!-- Add font library -->
+  <link rel="stylesheet" href="https://use.typekit.net/xwo3ven.css">
+  <!-- Add icon library **Delete if not in Use**-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+
+
+</head>
+
+<body>
+  <header>
+    <div class="container mt-4 d-flex align-items-center">
+      <img src="Assets/SVG/ResolveLogo1.svg" class="img-fluid " alt="Resolv Logo" />
+      <div class="container mt-2">
+        <h1 class="companyName ">Resolv</h1>
+      </div>
+    </div>
+    </div>
+
+  </header>
+
+  <div class="container aligningPageContent">
+
+    <div class="row">
+
+      <!--Text Column-->
+      <div class="d-flex align-items-center col-sm ">
+
+        <!--Large Text Block-->
+        <div class="myContainer">
+          <div class="container mainBlock ">
+            <h1 class="firstLine">Say goodbye to</h1>
+            <h1 class="secondLine">stolen <span style="color: #39A0EF">crypto</span> </span></h1>
+          </div>
+
+          <!--Teaser Paragraph-->
+          <div class="container mt-3 ">
+
+            <div class="explainerParagraph">
+              <p>We are building the future of crypto security.
+                Now there’s a way to get your crypto back after it has been stolen.
+                Enter your email below to stay up to date on what’s coming.</p>
+            </div>
+          </div>
+
+          <!--Email Input Box-->
+          <!--Change responsiveness for small screens-->
+          <form class="container mb-1" onsubmit="registerUser(); return false">
+            <div class="row rounded-pill border border-4" id="input">
+              <div class="input-group">
+                <input type="email" class="form-control shadow-none border-0 bg-transparent w-75" id="email-input"
+                  placeholder="Enter your email here" required />
+                <div style="text-align: center;">
+                  <button type="button" class="submitButton mt-1" id="submit" onclick="registerUser()">&gt;</button>
+              </div>
+                </div>
+            </div>
+
+            <div id="feedback-box" class="invalid-feedback"
+              style="font: normal normal 600 1.688rem/2.5rem Raleway; font-size: 1.25rem;">
+              Please enter a valid email
+            </div>
+            <div id="success-box" class="alert alert-success d-none">
+              Thanks for subscribing to our updates.
+            </div>
+            <div id="error-box" class="alert alert-danger d-none">
+              There was some problem adding your email.
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!--Image Column-->
+      <div class="d-flex align-self-center flex-column col-sm ">
+        <!--Wrapped Token Image-->
+        <img id="wrappedToken" src="Assets/Images/Resolv Token Asset.png"
+          class="img-fluid d-sm-none d-md-block d-none d-sm-block" alt="Resolv Wrapped Token" />
+      </div>
+
+    </div>
+
+  </div>
+
+  </div>
+
+  <!--Bootstrap Javascript Plugin-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
+</body>
+</html>
