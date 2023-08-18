@@ -23,7 +23,11 @@ const config: Config = {
         DEFAULT: '#f7f7f7',
         light: '#5f5f5f',
       },
-      green: '#e0ffef',
+      green: {
+        DEFAULT: '#e0ffef',
+        success: '#75b798',
+      },
+      red: '#ea868f',
       transparent: 'transparent',
       white: '#ffffff',
     },
