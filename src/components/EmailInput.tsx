@@ -66,11 +66,11 @@ export function EmailInput() {
   }
 
   return (
-    <div className="mx-auto mt-12 w-full md:w-email">
+    <div className="mx-auto mt-9 w-full md:w-email">
       <form action={registerUser} className="relative flex items-center w-full">
-        <input type="text" className="h-16 w-full pl-8 pr-44 rounded-full border-2 border-gray hover:border-gray-light" placeholder="Email" name="email" />
+        <input type="text" className="h-email w-full text-sm font-medium pl-8 pr-44 rounded-full border-2 border-gray hover:border-gray-light" placeholder="Email" name="email" />
         <div className="absolute right-2">
-          <button type="submit" className="h-12 w-40 text-gray-dark font-bold rounded-full bg-blue hover:bg-blue-light">Stay Updated</button>
+          <button type="submit" className="h-10 w-34 text-gray-dark font-semibold text-sm rounded-full bg-blue hover:bg-blue-light">Stay Updated</button>
         </div>
       </form>
       <div className={`${serverResponse.status === 'success' ? "text-green-success" : "text-red"} text-center transition-opacity duration-500 ease-linear ${serverResponse.status === 'idle' ? "opacity-0" : "opacity-100"}`}>{serverResponse.message}</div>

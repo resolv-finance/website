@@ -19,13 +19,13 @@ export function ImageViewer() {
   };
 
   return <>
-    <div className="rounded-4xl p-8 bg-gradient-to-br from-blue to-green mt-8">
-      <Image src={currentImg} alt="" className={`w-full transition-opacity duration-300 ease-linear ${imgChanged ? "opacity-0" : "opacity-100"}`} />
+    <div className="rounded-4xl p-6 bg-gradient-to-br from-blue to-green mt-12">
+      <Image src={currentImg} alt="" className={`bg-white rounded-xl w-full transition-opacity duration-300 ease-linear ${imgChanged ? "opacity-0" : "opacity-100"}`} />
     </div>
 
-    <div className="grid grid-cols-3 gap-8 mt-8">
-      <div className={`rounded-4xl p-8 ${currentImg === ProtectBox ? "bg-gradient-to-br from-blue to-green" : "bg-gray cursor-pointer"}`} onClick={() => imageClickHandler(ProtectBox)}>
-        <div className="w-12 h-12 flex items-center text-center mx-auto md:mx-0">
+    <div className="grid grid-cols-3 gap-7 mt-7">
+      <div className={`rounded-25xl p-8 ${currentImg === ProtectBox ? "bg-gradient-to-br from-blue to-green" : "bg-gray cursor-pointer"}`} onClick={() => imageClickHandler(ProtectBox)}>
+        <div className="w-13 h-12 flex items-center text-center mx-auto md:mx-0">
           <Image src={Logo} alt="Protect your crypto" className="mx-auto w-full" />
         </div>
         <div className="text-3xl mt-4 font-bold hidden md:block">
@@ -35,8 +35,8 @@ export function ImageViewer() {
         </div>
       </div>
 
-      <div className={`rounded-4xl p-8 ${currentImg === SwapTokensBox ? "bg-gradient-to-br from-blue to-green" : "bg-gray cursor-pointer"}`} onClick={() => imageClickHandler(SwapTokensBox)}>
-        <div className="w-12 h-12 flex items-center text-center mx-auto md:mx-0">
+      <div className={`rounded-25xl p-8 ${currentImg === SwapTokensBox ? "bg-gradient-to-br from-blue to-green" : "bg-gray cursor-pointer"}`} onClick={() => imageClickHandler(SwapTokensBox)}>
+        <div className="w-10 h-12 flex items-center text-center mx-auto md:mx-0">
           <Image src={BlackArrowsIcon} alt="Swap your tokens" className="mx-auto w-full" />
         </div>
         <div className="text-3xl mt-4 font-bold hidden md:block">
@@ -46,8 +46,8 @@ export function ImageViewer() {
         </div>
       </div>
 
-      <div className={`rounded-4xl p-8 ${currentImg === ReturnStolenBox ? "bg-gradient-to-br from-blue to-green" : "bg-gray cursor-pointer"}`} onClick={() => imageClickHandler(ReturnStolenBox)}>
-        <div className="w-12 h-12 flex items-center text-center mx-auto md:mx-0">
+      <div className={`rounded-25xl p-8 ${currentImg === ReturnStolenBox ? "bg-gradient-to-br from-blue to-green" : "bg-gray cursor-pointer"}`} onClick={() => imageClickHandler(ReturnStolenBox)}>
+        <div className="w-8 h-12 flex items-center text-center mx-auto md:mx-0">
           <Image src={WalletIcon} alt="Swap your tokens" className="mx-auto w-full" />
         </div>
         <div className="text-3xl mt-4 font-bold hidden md:block">

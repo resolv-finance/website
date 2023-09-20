@@ -6,153 +6,157 @@ import { EmailInput } from "@/components/EmailInput";
 
 export default function Home() {
   return <>
-    <header className="flex">
+    <header className="flex max-w-[900px] mx-auto px-6">
       <div className="flex items-center">
-        <Image src={Logo} alt="Resolv" className="w-12" />
-        <span className="pl-2 text-4xl font-bold">Resolv</span>
+        <Image src={Logo} alt="Resolv" className="w-h-logo" />
+        <span className="pl-2 text-3xl font-bold text-black">Resolv</span>
       </div>
     </header>
     
-    <h1 className="text-6xl font-bold text-center leading-extra-tight mt-24">
-      Say goodbye to
-      <br />
-      stolen crypto.
-    </h1>
-    <h2 className="text-center mt-12">
-      Start protecting your crypto assets from
-      <br />
-      fraudulent activity in minutes.
-    </h2>
-
-    <EmailInput />
-
-    <div className="flex items-center justify-center mt-32">
-      <span className="font-bold text-2xl pr-2">Explore</span>
-      <Image src={CircleArrowIcon} alt="" className="w-7" />
-    </div>
-
-    <h2 className="text-3xl mt-32 font-bold">
-      Let&apos;s cut right to the chase.
-      <br />
-      No confusing crypto lingo.
-    </h2>
-
-    <div className="rounded-4xl p-8 bg-blue mt-8">
-      <div className="bg-black rounded-full w-12 h-12 flex items-center text-center">
-        <Image src={ArrowsIcon} alt="" className="mx-auto w-8" />
-      </div>
-      <div className="text-3xl mt-4 font-bold">
-        Your funds returned,
+    <div className="container px-6">
+      <h1 className="text-11xl font-bold text-center leading-extra-tight mt-24">
+        Say goodbye to
         <br />
-        even <span className="text-blue-dark">after</span> being stolen.
+        stolen crypto.
+      </h1>
+      <h2 className="text-center mt-6 font-medium">
+        Start protecting your crypto assets from
+        <br />
+        fraudulent activity in minutes.
+      </h2>
+
+      <EmailInput />
+
+      <div className="flex items-center justify-center mt-24">
+        <span className="font-bold text-xl pr-2">Explore</span>
+        <Image src={CircleArrowIcon} alt="" className="w-explore" />
+      </div>
+
+      <h2 className="text-7xl mt-18 font-bold">
+        Let&apos;s cut right to the chase.
+        <br />
+        No confusing crypto lingo.
+      </h2>
+
+      <div className="rounded-4xl p-12 bg-blue mt-11">
+        <div className="bg-black rounded-full w-17 h-17 flex items-center text-center">
+          <Image src={ArrowsIcon} alt="" className="mx-auto w-8" />
+        </div>
+        <div className="text-8xl mt-7 font-bold">
+          Your funds returned,
+          <br />
+          even <span className="text-blue-dark">after</span> being stolen.
+        </div>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-6 mt-6">
+        <div className="rounded-4xl p-12 bg-green">
+          <div className="bg-black rounded-full w-17 h-17 flex items-center text-center">
+            <Image src={CheckIcon} alt="" className="mx-auto w-8" />
+          </div>
+          <div className="text-5xl mt-6 font-bold">
+            Simple onboarding.
+            <br />
+            Peaceful <span className="text-blue-dark">protection</span>.
+          </div>
+        </div>
+
+        <div className="rounded-4xl p-12 bg-gray">
+          <div className="bg-black rounded-full w-17 h-17 flex items-center text-center">
+            <Image src={ShieldIcon} alt="" className="mx-auto w-6" />
+          </div>
+          <div className="text-5xl mt-6 font-bold">
+            Your security is our
+            <br />
+            <span className="text-blue-dark">top priority</span>.
+          </div>
+        </div>
+      </div>
+
+      <h2 className="text-7xl mt-28 font-bold">
+        All controlled from a simple dashboard
+        <br />
+        that even your <span className="text-blue-dark">grandma</span> can use.
+      </h2>
+
+      <ImageViewer />
+
+      <div className="grid md:grid-cols-2 md:gap-8 mt-28 items-center">
+        <div className="py-8 pl-4 md:order-2">
+          <div className="rounded-3xl bg-gradient-to-br from-blue to-green py-2 px-6 font-bold inline-block text-xl">Step 1</div>
+          <div className="text-10xl font-bold mt-6">
+            Protect
+            <br />
+            your tokens
+          </div>
+          <div className="text-lg mt-5">
+            In seconds, your ERC-20 tokens<br />will be protected from being<br />stolen.
+          </div>
+        </div>
+
+        <div className="rounded-4xl p-12 flex items-center bg-gray h-98">
+          <Image src={CongratsBox} alt="" className="mx-auto bg-white rounded-2xl w-69" />
+        </div>
+      </div>
+
+      <div className="grid md:grid-cols-2 md:gap-8 mt-24 items-center">
+        <div className="py-8 pl-4">
+          <div className="rounded-3xl bg-gradient-to-br from-blue to-green py-2 px-6 font-bold inline-block text-xl">Step 2</div>
+          <div className="text-10xl font-bold mt-6">
+            Submit
+            <br />
+            a dispute
+          </div>
+          <div className="text-lg mt-5">
+            We hope you don&apos;t get your funds<br />stolen, but if you do, simply Resolv<br />the transaction.
+          </div>
+        </div>
+
+        <div className="rounded-4xl pr-8 py-20 flex items-center bg-gray h-98">
+          <Image src={ResolvButton} alt="" />
+        </div>
+      </div>
+
+      <div className="grid md:grid-cols-2 md:gap-8 mt-24 items-center">
+        <div className="py-8 pl-4 md:order-2">
+          <div className="rounded-3xl bg-gradient-to-br from-blue to-green py-2 px-6 font-bold inline-block text-xl">Step 3</div>
+          <div className="text-10xl font-bold mt-6">
+            Get your
+            <br />
+            crypto back
+          </div>
+          <div className="text-lg mt-5">
+            Once the Resovlrs have viewed the<br />case and voted in your favor, your<br />funds will be returned to a wallet of<br />your choosing.
+          </div>
+        </div>
+
+        <div className="rounded-4xl p-16 flex items-center bg-gray h-98">
+          <Image src={GoodNewsBox} alt="" className="mx-auto bg-white rounded-2xl w-fit" />
+        </div>
       </div>
     </div>
 
-    <div className="grid md:grid-cols-2 gap-8 mt-8">
-      <div className="rounded-4xl p-8 bg-green">
-        <div className="bg-black rounded-full w-12 h-12 flex items-center text-center">
-          <Image src={CheckIcon} alt="" className="mx-auto w-8" />
+    <div className="w-full bg-blue mt-28">
+      <div className="container grid lg:grid-cols-2 items-center">
+        <div className="pt-8 pl-8 lg:pb-8 lg:pr-8">
+          <div className="text-9xl font-bold">
+            Frequently asked questions
+          </div>
+          <div className="font-medium mt-6">
+            We get it. It&apos;s a lot to take in.
+            <br />
+            Hope these FAQ&apos;s help.
+          </div>
         </div>
-        <div className="text-3xl mt-4 font-bold">
-          Simple onboarding.
-          <br />
-          Peaceful <span className="text-blue-dark">protection</span>.
-        </div>
-      </div>
 
-      <div className="rounded-4xl p-8 bg-gray">
-        <div className="bg-black rounded-full w-12 h-12 flex items-center text-center">
-          <Image src={ShieldIcon} alt="" className="mx-auto w-6" />
-        </div>
-        <div className="text-3xl mt-4 font-bold">
-          Your security is our
-          <br />
-          <span className="text-blue-dark">top priority</span>.
-        </div>
+        <Accordion />
       </div>
     </div>
 
-    <h2 className="text-3xl mt-16 font-bold">
-      All controlled from a simple dashboard
-      <br />
-      that even your <span className="text-blue-dark">grandma</span> can use.
-    </h2>
-
-    <ImageViewer />
-
-    <div className="grid md:grid-cols-2 md:gap-8 mt-16 items-center">
-      <div className="p-8 md:order-2">
-        <div className="rounded-full bg-gradient-to-br from-blue to-green py-4 px-12 font-bold inline-block text-2xl">Step 1</div>
-        <div className="text-5xl font-bold mt-8 leading-tight">
-          Protect
-          <br />
-          your tokens
-        </div>
-        <div className="text-2xl mt-8">
-          In seconds, your ERC-20 tokens will be protected from being stolen.
-        </div>
-      </div>
-
-      <div className="rounded-4xl p-8 flex items-center bg-gray">
-        <Image src={CongratsBox} alt="" className="mx-auto" />
-      </div>
-    </div>
-
-    <div className="grid md:grid-cols-2 md:gap-8 mt-12 items-center">
-      <div className="p-8">
-        <div className="rounded-full bg-gradient-to-br from-blue to-green py-4 px-12 font-bold inline-block text-2xl">Step 2</div>
-        <div className="text-5xl font-bold mt-8 leading-tight">
-          Submit
-          <br />
-          a dispute
-        </div>
-        <div className="text-2xl mt-8">
-          We hope you don&apos;t get your funds stolen, but if you do, simply Resolv the transaction.
-        </div>
-      </div>
-
-      <div className="rounded-4xl pr-8 py-20 flex items-center bg-gray">
-        <Image src={ResolvButton} alt="" />
-      </div>
-    </div>
-
-    <div className="grid md:grid-cols-2 md:gap-8 mt-12 items-center">
-      <div className="p-8 md:order-2">
-        <div className="rounded-full bg-gradient-to-br from-blue to-green py-4 px-12 font-bold inline-block text-2xl">Step 3</div>
-        <div className="text-5xl font-bold mt-8 leading-tight">
-          Get your
-          <br />
-          crypto back
-        </div>
-        <div className="text-2xl mt-8">
-          Once the Resovlrs have viewed the case and voted in your favor, your funds will be returned to a wallet of your choosing.
-        </div>
-      </div>
-
-      <div className="rounded-4xl p-8 flex items-center bg-gray">
-        <Image src={GoodNewsBox} alt="" className="mx-auto" />
-      </div>
-    </div>
-
-    <div className="w-full bg-blue grid lg:grid-cols-2 items-center mt-16">
-      <div className="pt-8 pl-8 lg:pb-8 lg:pr-8">
-        <div className="text-4xl font-bold">
-          Frequently asked questions
-        </div>
-        <div className="text-2xl mt-8">
-          We get it. It&apos;s a lot to take in.
-          <br />
-          Hope these FAQ&apos;s help.
-        </div>
-      </div>
-
-      <Accordion />
-    </div>
-
-    <footer className="my-24">
+    <footer className="my-24 container px-6">
       <div className="flex items-center">
-        <Image src={Logo} alt="Resolv" className="w-24" />
-        <span className="text-6xl font-bold pl-2">Resolv</span>
+        <Image src={Logo} alt="Resolv" className="w-f-logo" />
+        <span className="text-6xl font-bold text-black pl-2">Resolv</span>
       </div>
     </footer>
   </>
