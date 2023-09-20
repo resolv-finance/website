@@ -16,7 +16,7 @@ export function AccordionItem({ id, question, answer, clickHandler, currentFaq }
         </div>
         <div className="font-semibold">{question}</div>
       </div>
-      <div className={`text-sm ml-7 mt-2 overflow-hidden transition-[max-height] duration-500 ${currentFaq === id ? "max-h-56" : "max-h-0"}`} dangerouslySetInnerHTML={{ __html: answer }}></div>
+      <div className={`text-sm ml-7 mt-2 overflow-hidden transition-[max-height] duration-500 ${currentFaq === id ? " max-h-96" : "max-h-0"}`} dangerouslySetInnerHTML={{ __html: answer }}></div>
     </div>
   )
 }
