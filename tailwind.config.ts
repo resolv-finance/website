@@ -70,7 +70,7 @@ const config: Config = {
         'full': '3.375rem', // 54px
       },
       fontFamily: {
-        raleway: ['Raleway', ...defaultTheme.fontFamily.sans],
+        raleway: ['Raleway', 'sans-serif'],
       },
       height: {
         'email': '3.43rem',
