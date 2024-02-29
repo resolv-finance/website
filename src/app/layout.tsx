@@ -25,7 +25,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.className} mt-4 font-raleway text-gray-dark transition-opacity ease-in-out opacity-0 <STATE>:opacity-100 duration-300`}
+        className={`${inter.className} mt-8 font-raleway text-gray-dark transition-opacity ease-in-out opacity-0 <STATE>:opacity-100 duration-300`}
       >
         {children}
       </body>

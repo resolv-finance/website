@@ -19,15 +19,15 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   return (
     <>
-      <header className="flex max-w-[900px] mx-auto px-6">
+      <header className="flex max-w-[900px] mx-auto px-10">
         <div className="flex items-center">
           <Image src={Logo} alt="Resolv" className="w-h-logo" />
           <span className="pl-2 text-3xl font-bold text-black">Resolv</span>
         </div>
       </header>
 
-      <div className="container px-6">
-        <h1 className="font-raleway text-[5rem] font-bold text-center leading-extra-tight mt-24">
+      <div className="container px-10 md:px-0">
+        <h1 className="md:text-[5rem] text-10xl font-bold text-center leading-extra-tight mt-24">
           Say goodbye to
           <br />
           stolen crypto.
@@ -43,11 +43,11 @@ export default function Home() {
         <EmailInput />
 
         <div className="flex items-center justify-center mt-24">
-          <span className="font-bold text-xl pr-2">Explore</span>
+          <span className="font-medium text-3xl pr-2">Explore</span>
           <Image src={CircleArrowIcon} alt="" className="w-explore" />
         </div>
 
-        <h2 className="text-7xl mt-18 font-bold">
+        <h2 className="text-6xl mt-18 font-semibold">
           Let&apos;s cut right to the chase.
           <br />
           No confusing crypto lingo.
@@ -57,7 +57,7 @@ export default function Home() {
           <div className="bg-black rounded-full w-17 h-17 flex items-center text-center">
             <Image src={ArrowsIcon} alt="" className="mx-auto w-8" />
           </div>
-          <div className="text-8xl mt-7 font-bold">
+          <div className="text-7xl mt-7 font-bold">
             Your funds returned,
             <br />
             even <span className="text-blue-dark">after</span> being stolen.
@@ -69,7 +69,7 @@ export default function Home() {
             <div className="bg-black rounded-full w-17 h-17 flex items-center text-center">
               <Image src={CheckIcon} alt="" className="mx-auto w-8" />
             </div>
-            <div className="text-5xl mt-6 font-bold">
+            <div className="text-7xl mt-6 font-bold">
               Simple onboarding.
               <br />
               Peaceful <span className="text-blue-dark">protection</span>.
@@ -80,7 +80,7 @@ export default function Home() {
             <div className="bg-black rounded-full w-17 h-17 flex items-center text-center">
               <Image src={ShieldIcon} alt="" className="mx-auto w-6" />
             </div>
-            <div className="text-5xl mt-6 font-bold">
+            <div className="text-7xl mt-6 font-bold">
               Your security is our
               <br />
               <span className="text-blue-dark">top priority</span>.
@@ -88,11 +88,9 @@ export default function Home() {
           </div>
         </div>
 
-        <h2 className="text-7xl mt-28 font-bold">
-          All controlled from a simple dashboard
-          <br />
-          that even your <span className="text-blue-dark">grandma</span> can
-          use.
+        <h2 className="text-7xl mt-28 font-semibold">
+          All controlled from a simple dashboard that even your{" "}
+          <span className="text-blue-dark">grandma</span> can use.
         </h2>
 
         <ImageViewer />
@@ -116,12 +114,14 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="rounded-4xl p-12 flex items-center bg-gray h-98">
-            <Image
-              src={CongratsBox}
-              alt=""
-              className="mx-auto bg-white rounded-2xl w-69"
-            />
+          <div className="rounded-4xl p-6 flex items-center bg-gray h-98">
+            <div className="image-container bg-white h-full w-full rounded-4xl flex items-center">
+              <Image
+                src={CongratsBox}
+                alt=""
+                className="mx-auto bg-white rounded-2xl w-69"
+              />
+            </div>
           </div>
         </div>
 
