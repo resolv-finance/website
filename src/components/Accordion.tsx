@@ -16,7 +16,7 @@ const faqs = [
   {
     id: 3,
     question: "How does this work?",
-    answer: "<a href=\"./Resolv_One-Pager.pdf\" target=\"_blank\" class=\"text-blue-dark hover:text-gray-light\">Our One-Pager</a>",
+    answer: "<a href=\"./Resolv-One-Pager.pdf\" target=\"_blank\" class=\"text-blue-dark hover:text-gray-light\">Our One-Pager</a>",
   },
   {
     id: 4,
