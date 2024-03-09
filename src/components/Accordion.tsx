@@ -21,7 +21,7 @@ const faqs = [
   {
     id: 4,
     question: "Doesn't this go against the ethos of Crypto?",
-    answer: "No. In fact, it embodies all that crypto stands for! Vitalik Beutrin explains that the goal of crypto was never to remove all trust. Instead, it is to give people the choice of whom to trust. Crypto should ultimately give \"<a href=\"https://vitalik.ca/general/2021/01/11/recovery.html\" target=\"_blank\" class=\"text-blue-dark hover:text-gray-light\">someone the power to do some things on your behalf without giving them the power to do everything</a>.\" Multi-sig is a perfect expression of this. It assures users that their funds can be securely held and <a href=\"https://chain.link/proof-of-reserve\" target=\"_blank\" class=\"text-blue-dark hover:text-gray-light\">verified</a>, without having to worry that one entity will run off with the pot.",
+    answer: "No. In fact, it embodies all that crypto stands for! Vitalik Beutrin explains that the goal of crypto was never to remove all trust. Instead, it is to give people the choice of whom to trust. Crypto should ultimately give \"<a href=\"https://vitalik.ca/general/2021/01/11/recovery.html\" target=\"_blank\" class=\"text-blue-dark hover:text-gray-light\">someone the power to do some things on your behalf without giving them the power to do everything</a>.\" Multi-sig is a perfect expression of this. It assures users that their funds can be securely held and <a href=\"https://hackernoon.com/what-is-a-social-recovery-wallet" target=\"_blank\" class=\"text-blue-dark hover:text-gray-light\">verified</a>, without having to worry that one entity will run off with the pot.",
   },
 ];
 
