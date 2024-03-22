@@ -159,13 +159,8 @@ export default function Home() {
               crypto back
             </div>
             <div className="text-lg mt-5">
-              Once the Resolvrs have viewed the
-              <br />
-              case and voted in your favor, your
-              <br />
-              funds will be returned to a wallet of
-              <br />
-              your choosing.
+              Once the Resolvrs have viewed the case and voted in your favor,
+              your funds will be returned to a wallet of your choosing.
             </div>
           </div>
 
