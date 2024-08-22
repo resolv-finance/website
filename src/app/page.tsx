@@ -15,17 +15,19 @@ import { Accordion } from "@/components/Accordion";
 import { ImageViewer } from "@/components/ImageViewer";
 import { EmailInput } from "@/components/EmailInput";
 import { Inter } from "next/font/google";
+import ResolvConnectButton from "@/components/ResolvConnectButton/ResolvConnectButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
-    <>
-      <header className="flex max-w-[900px] mx-auto px-10">
+    <div>
+      <header className="flex items-between max-w-[900px] mx-auto px-10">
         <div className="flex items-center">
           <Image src={Logo} alt="Resolv" className="w-h-logo" />
           <span className="pl-2 text-3xl font-bold text-black">Resolv</span>
         </div>
+        <ResolvConnectButton />
       </header>
 
       <div className="container px-10 md:px-0">
@@ -197,6 +199,6 @@ export default function Home() {
           <span className="text-6xl font-bold text-black pl-2">Resolv</span>
         </div>
       </footer>
-    </>
+    </div>
   );
 }
