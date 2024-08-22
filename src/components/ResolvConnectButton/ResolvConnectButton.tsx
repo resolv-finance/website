@@ -3,8 +3,14 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useEffect } from "react";
 import "./ResolvConnectButton.css";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
-const ResolvConnectButton = () => {
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+const ResolvConnectButton = ({styles} : {styles: string}) => {
   let isMobile = false;
 
   useEffect(() => {
@@ -44,7 +50,7 @@ const ResolvConnectButton = () => {
                   <button
                     onClick={openConnectModal}
                     type="button"
-                    className="flex justify-center w-fit border border-2 border-black rounded-full py-2 px-4"
+                    className={cn(styles, "flex justify-center w-fit border border-2 border-black rounded-full py-2 px-4")}
                   >
                     Connect Wallet
                   </button>
