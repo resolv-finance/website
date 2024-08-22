@@ -1,10 +1,12 @@
 "use client";
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import "./ResolvConnectButton.css";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { WalletContext } from "@/contexts/WalletContextProvider";
+import { useAccount, useBalance } from 'wagmi';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -16,6 +18,12 @@ const ResolvConnectButton = ({styles} : {styles: string}) => {
   useEffect(() => {
     isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   }, []);
+
+  const {address} = useAccount()
+
+  useEffect(() => {
+    console.log(address)
+  }, [address])
 
   return (
     <ConnectButton.Custom>
