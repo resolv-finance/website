@@ -1,29 +1,56 @@
 "use client";
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import "./ResolvConnectButton.css";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { WalletContext } from "@/contexts/WalletContextProvider";
 import { useAccount, useBalance } from 'wagmi';
+import axios from 'axios'; // Make sure to install axios if not already installed
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
 const ResolvConnectButton = ({styles} : {styles: string}) => {
-  let isMobile = false;
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [doesWalletExist, setDoesWalletExist] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const { address } = useAccount();
 
   useEffect(() => {
-    isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
   }, []);
 
-  const {address} = useAccount()
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      // Check if user is logged in (you might want to use a more robust method)
+      const userToken = localStorage.getItem('userToken');
+      setIsLoggedIn(!!userToken);
+    };
+
+    checkLoginStatus();
+  }, []);
 
   useEffect(() => {
-    console.log(address)
-  }, [address])
+    const checkWalletExists = async () => {
+      if (address) {
+        try {
+          const response = await axios.post('/api/checkIfWalletExists', { walletAddress: address });
+          const { exists } = response.data;
+          setDoesWalletExist(exists);
+          if (!exists) {
+            localStorage.setItem('walletAddress', address);
+          }
+        } catch (error) {
+          console.error('Error checking wallet:', error);
+        }
+      }
+    };
+
+    checkWalletExists();
+  }, [address]);
 
   return (
     <ConnectButton.Custom>
