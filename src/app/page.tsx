@@ -22,7 +22,7 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   return (
     <div>
-      <header className="flex items-between max-w-[900px] mx-auto px-10">
+      <header className="flex justify-between w-full max-w-[900px] mx-auto px-10">
         <div className="flex items-center">
           <Image src={Logo} alt="Resolv" className="w-h-logo" />
           <span className="pl-2 text-3xl font-bold text-black">Resolv</span>
