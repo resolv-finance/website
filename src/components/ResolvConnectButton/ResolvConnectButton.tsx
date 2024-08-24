@@ -84,20 +84,20 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
             {(() => {
               if (!connected) {
                 return (
-                  <button
-                    onClick={openConnectModal}
-                    type="button"
-                    className={cn(styles, "flex gap-2")}
-                  >
-                    <div className="h-[50%] flex items-center"> {/* Container for the icon */}
-                      {icon && <Image 
-                        src={icon!} 
-                        alt="icon" 
-                        className="h-full w-auto transform rotate-12" // Make height 100% of parent (which is 80% of button height)
-                      />}
-                    </div>
-                    Connect Wallet
-                  </button>
+                    <button
+                      onClick={openConnectModal}
+                      type="button"
+                      className={cn(styles, "flex gap-2")}
+                    >
+                      <div className="h-[50%] flex items-center"> {/* Container for the icon */}
+                        {icon && <Image 
+                          src={icon!} 
+                          alt="icon" 
+                          className="h-full w-auto transform rotate-12" // Make height 100% of parent (which is 80% of button height)
+                        />}
+                      </div>
+                      Connect Wallet
+                    </button>
                 );
               }
               if (chain.unsupported) {

@@ -92,7 +92,15 @@ export default function Home() {
                 >
                   {(() => {
                     return (
-                      <button onClick={openConnectModal} type="button">
+                      <button
+                        onClick={openConnectModal}
+                        type="button"
+                        className="flex justify-center w-fit border border-2 border-black rounded-full py-2 px-4"
+                      >
+                        <div className="h-[50%] flex items-center">
+                          {" "}
+                          {/* Container for the icon */}
+                        </div>
                         {storedAddress.current || "Connect Wallet"}
                       </button>
                     );
