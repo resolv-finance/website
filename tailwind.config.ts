@@ -60,6 +60,7 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "gradient-to-r": "linear-gradient(231deg, var(--tw-gradient-stops))",
       },
       borderRadius: {
         lg: "1.6875rem", // 27px
@@ -93,6 +94,10 @@ const config: Config = {
         "f-logo": "3.375rem",
         "13": "3.4375rem",
         "69": "17.2rem",
+      },
+      boxShadow: {
+        "resolv-button":
+          "0px 6px 19.6px -5px rgba(39, 49, 58, 0.12), 0px 0px 4px 2px rgba(255, 255, 255, 0.64) inset, 0px 5px 2px 0px rgba(255, 255, 255, 0.55) inset",
       },
     },
   },

@@ -85,7 +85,7 @@ const ResolvConnectButton = ({styles} : {styles: string}) => {
                   <button
                     onClick={openConnectModal}
                     type="button"
-                    className={cn(styles, "flex justify-center w-fit border border-2 border-black rounded-full py-2 px-4")}
+                    className={cn(styles, "")}
                   >
                     Connect Wallet
                   </button>
