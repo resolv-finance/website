@@ -17,6 +17,7 @@ import { EmailInput } from "@/components/EmailInput";
 import { Inter } from "next/font/google";
 import ResolvConnectButton from "@/components/ResolvConnectButton/ResolvConnectButton";
 import WalletIcon from "../assets/icons/wallet.svg?url";
+import Sponsors from "@/components/Sponsors";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -55,6 +56,10 @@ export default function Home() {
         </div>
 
         <EmailInput />
+
+        <div className="w-screen px-16 absolute left-0 my-10">
+          <Sponsors />
+        </div>
 
         <div className="flex items-center justify-center mt-24">
           <span className="font-medium text-3xl pr-2">Explore</span>

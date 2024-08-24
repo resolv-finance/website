@@ -18,6 +18,8 @@ const config: Config = {
       },
     },
     colors: {
+      stoneGray: "#F7F7F7",
+      stoneGrayDark: "#E6E6E6",
       black: "#000000",
       blue: {
         dark: "#2a72aa",

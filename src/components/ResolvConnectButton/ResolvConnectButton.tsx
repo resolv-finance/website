@@ -61,22 +61,19 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
         openAccountModal,
         openChainModal,
         openConnectModal,
-        authenticationStatus,
         mounted,
       }) => {
         // Note: If your app doesn't use authentication, you
         // can remove all 'authenticationStatus' checks
-        const ready = mounted && authenticationStatus !== "loading";
+        const ready = mounted;
         const connected =
           ready &&
           account &&
-          chain &&
-          (!authenticationStatus || authenticationStatus === "authenticated");
+          chain
         return (
           <div
             className="connect-button"
             {...(!ready && {
-              "aria-hidden": true,
               "data-ready": false,
             })}
           >
