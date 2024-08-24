@@ -8,12 +8,13 @@ import { twMerge } from "tailwind-merge";
 import { WalletContext } from "@/contexts/WalletContextProvider";
 import { useAccount, useBalance } from 'wagmi';
 import axios from 'axios'; // Make sure to install axios if not already installed
+import Image from "../../../node_modules/next/image";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const ResolvConnectButton = ({styles} : {styles: string}) => {
+const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [doesWalletExist, setDoesWalletExist] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -85,8 +86,15 @@ const ResolvConnectButton = ({styles} : {styles: string}) => {
                   <button
                     onClick={openConnectModal}
                     type="button"
-                    className={cn(styles, "")}
+                    className={cn(styles, "flex gap-2")}
                   >
+                    <div className="h-[50%] flex items-center"> {/* Container for the icon */}
+                      {icon && <Image 
+                        src={icon!} 
+                        alt="icon" 
+                        className="h-full w-auto transform rotate-12" // Make height 100% of parent (which is 80% of button height)
+                      />}
+                    </div>
                     Connect Wallet
                   </button>
                 );
