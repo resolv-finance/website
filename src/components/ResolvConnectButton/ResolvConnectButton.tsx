@@ -18,7 +18,8 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [doesWalletExist, setDoesWalletExist] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const { address } = useAccount();
+  const account = useAccount();
+  const {address} = account
   const {disconnect} = useDisconnect()
 
   useEffect(() => {

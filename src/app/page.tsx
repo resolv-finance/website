@@ -16,14 +16,43 @@ import { ImageViewer } from "@/components/ImageViewer";
 import { EmailInput } from "@/components/EmailInput";
 import { Inter } from "next/font/google";
 import ResolvConnectButton from "@/components/ResolvConnectButton/ResolvConnectButton";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import WalletIcon from "../assets/icons/wallet.svg?url";
 import Sponsors from "@/components/Sponsors";
 import { useAccount } from "wagmi";
+import { useState, useEffect, useRef } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const { address } = useAccount();
+  const account = useAccount();
+  const { address } = account;
+  const [isWalletConnected, setIsWalletConnected] = useState<boolean>(false);
+  let storedAddress = useRef<string | null>(null);
+
+  useEffect(() => {
+    storedAddress.current = localStorage.getItem("walletAddress");
+    console.log(account);
+  }, []);
+
+  useEffect(() => {
+    if (!address) {
+      if (storedAddress.current) {
+        setIsWalletConnected(true);
+      } else {
+        setIsWalletConnected(false);
+      }
+    } else {
+      setIsWalletConnected(true);
+    }
+  }, [address]);
+
+  useEffect(() => {
+    if (!address) {
+      localStorage.removeItem("walletAddress");
+      setIsWalletConnected(false);
+    }
+  }, [address]);
 
   return (
     <div>
@@ -32,7 +61,47 @@ export default function Home() {
           <Image src={Logo} alt="Resolv" className="w-h-logo" />
           <span className="pl-2 text-3xl font-bold text-black">Resolv</span>
         </div>
-        <ResolvConnectButton styles="flex justify-center w-fit border border-2 border-black rounded-full py-2 px-4" />
+        {address ? (
+          <ResolvConnectButton styles="flex justify-center w-fit border border-2 border-black rounded-full py-2 px-4" />
+        ) : (
+          <ConnectButton.Custom>
+            {({
+              account,
+              chain,
+              openAccountModal,
+              openChainModal,
+              openConnectModal,
+              authenticationStatus,
+              mounted,
+            }) => {
+              // Note: If your app doesn't use authentication, you
+              // can remove all 'authenticationStatus' checks
+              const ready = mounted && authenticationStatus !== "loading";
+              const connected =
+                ready &&
+                account &&
+                chain &&
+                (!authenticationStatus ||
+                  authenticationStatus === "authenticated");
+
+              return (
+                <div
+                  {...(!ready && {
+                    "aria-hidden": true,
+                  })}
+                >
+                  {(() => {
+                    return (
+                      <button onClick={openConnectModal} type="button">
+                        {storedAddress.current || "Connect Wallet"}
+                      </button>
+                    );
+                  })()}
+                </div>
+              );
+            }}
+          </ConnectButton.Custom>
+        )}
       </header>
 
       <div className="container px-10 md:px-0">
@@ -48,7 +117,7 @@ export default function Home() {
           free protection upon release.
         </h2>
 
-        {!address && (
+        {isWalletConnected == false && (
           <div className="flex items-center justify-center mt-8">
             <div className="relative inline-block">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-green-200 rounded-full blur-sm"></div>
@@ -60,7 +129,7 @@ export default function Home() {
           </div>
         )}
 
-        {!!address && <EmailInput />}
+        {isWalletConnected == true && <EmailInput />}
 
         <div className="w-screen px-16 absolute left-0 my-10">
           <Sponsors />
