@@ -18,10 +18,13 @@ import { Inter } from "next/font/google";
 import ResolvConnectButton from "@/components/ResolvConnectButton/ResolvConnectButton";
 import WalletIcon from "../assets/icons/wallet.svg?url";
 import Sponsors from "@/components/Sponsors";
+import { useAccount } from "wagmi";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const { address } = useAccount();
+
   return (
     <div>
       <header className="flex justify-between w-full max-w-[900px] mx-auto px-10">
@@ -45,17 +48,19 @@ export default function Home() {
           free protection upon release.
         </h2>
 
-        <div className="flex items-center justify-center mt-8">
-          <div className="relative inline-block">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-green-200 rounded-full blur-sm"></div>
-            <ResolvConnectButton
-              icon={WalletIcon}
-              styles="relative h-[64px] px-6 py-3 bg-gradient-to-r from-[#D1FFE7] to-[#D0EAFF] shadow-resolv-button rounded-full text-gray-800 font-semibold flex items-center space-x-2 shadow-md transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] hover:translate-y-[1px] hover:shadow-none focus:outline-none"
-            />
+        {!address && (
+          <div className="flex items-center justify-center mt-8">
+            <div className="relative inline-block">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-green-200 rounded-full blur-sm"></div>
+              <ResolvConnectButton
+                icon={WalletIcon}
+                styles="relative h-[64px] px-6 py-3 bg-gradient-to-r from-[#D1FFE7] to-[#D0EAFF] shadow-resolv-button rounded-full text-gray-800 font-semibold flex items-center space-x-2 shadow-md transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] hover:translate-y-[1px] hover:shadow-none focus:outline-none"
+              />
+            </div>
           </div>
-        </div>
+        )}
 
-        <EmailInput />
+        {!!address && <EmailInput />}
 
         <div className="w-screen px-16 absolute left-0 my-10">
           <Sponsors />

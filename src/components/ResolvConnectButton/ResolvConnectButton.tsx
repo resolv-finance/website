@@ -6,7 +6,7 @@ import "./ResolvConnectButton.css";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { WalletContext } from "@/contexts/WalletContextProvider";
-import { useAccount, useBalance } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
 import axios from 'axios'; // Make sure to install axios if not already installed
 import Image from "../../../node_modules/next/image";
 
@@ -19,6 +19,7 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
   const [doesWalletExist, setDoesWalletExist] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const { address } = useAccount();
+  const {disconnect} = useDisconnect()
 
   useEffect(() => {
     setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
@@ -46,11 +47,13 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
           }
         } catch (error) {
           console.error('Error checking wallet:', error);
+          disconnect()
         }
       }
     };
 
-    checkWalletExists();
+    // UNCOMMENT
+    // checkWalletExists();
   }, [address]);
 
   return (
