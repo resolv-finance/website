@@ -21,6 +21,7 @@ import WalletIcon from "../assets/icons/wallet.svg?url";
 import Sponsors from "@/components/Sponsors";
 import { useAccount } from "wagmi";
 import { useState, useEffect, useRef } from "react";
+import SpotSecured from "@/components/SpotSecured";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -112,21 +113,30 @@ export default function Home() {
         )}
       </header>
 
-      <div className="container px-10 md:px-0">
-        <h1 className="md:text-[4rem] text-10xl font-bold text-center leading-extra-tight mt-24">
+      <div className="container px-10 md:px-0 mt-24">
+        {isWalletConnected && (
+          <div className="flex items-center justify-center mb-2">
+            <div className="relative inline-block">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-green-200 rounded-full blur-sm"></div>
+              <SpotSecured />
+            </div>
+          </div>
+        )}
+
+        <h1 className="md:text-[4rem] text-10xl font-bold text-center leading-extra-tight mb-8">
           Put stolen crypto
           <br />
           back in your wallet.
         </h1>
         <h2
-          className={`${inter.className} text-center mt-6 font-regular text-2xl`}
+          className={`${inter.className} text-center mb-16 font-regular text-2xl`}
         >
           Become and early adopter and connect your wallet to get $250,000 in
           free protection upon release.
         </h2>
 
         {isWalletConnected == false && (
-          <div className="flex items-center justify-center mt-8">
+          <div className="flex items-center justify-center mb-16">
             <div className="relative inline-block">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-green-200 rounded-full blur-sm"></div>
               <ResolvConnectButton
@@ -139,11 +149,9 @@ export default function Home() {
 
         {isWalletConnected == true && <EmailInput />}
 
-        <div className="w-screen px-16 absolute left-0 my-10">
-          <Sponsors />
-        </div>
+        <Sponsors />
 
-        <div className="flex items-center justify-center mt-24">
+        <div className="flex items-center justify-center m-28">
           <span className="font-medium text-3xl pr-2">Explore</span>
           <Image src={CircleArrowIcon} alt="" className="w-explore" />
         </div>

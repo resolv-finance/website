@@ -70,7 +70,7 @@ export function EmailInput() {
   }
 
   return (
-    <div className="mx-auto mt-9 w-full md:w-email">
+    <div className="mx-auto mb-16 w-full md:w-email">
       <form action={registerUser} className="relative flex items-center w-full">
         <input
           type="text"
