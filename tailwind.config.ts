@@ -44,6 +44,7 @@ const config: Config = {
     fontSize: {
       // when base is 16px
       sm: "0.9375rem", // 15px
+      base: "1rem",
       lg: ["1.125rem", "1.388888"], // 18px 25px
       xl: ["1.1875rem", "1.5rem"], // 19px 24px
       "2xl": "1.25rem", // 20px
