@@ -5,7 +5,6 @@ import { useEffect, useContext, useState, useRef, useLayoutEffect } from "react"
 import "./ResolvConnectButton.css";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { WalletContext } from "@/contexts/WalletContextProvider";
 import { useAccount, useDisconnect } from 'wagmi';
 import axios from 'axios'; // Make sure to install axios if not already installed
 import Image from "../../../node_modules/next/image";
