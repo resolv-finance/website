@@ -1,7 +1,7 @@
 "use client";
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, useRef, useLayoutEffect } from "react";
 import "./ResolvConnectButton.css";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -36,26 +36,42 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
     checkLoginStatus();
   }, []);
 
-  useEffect(() => {
-    const checkWalletExists = async () => {
-      if (address) {
-        try {
-          const response = await axios.post('/api/checkIfWalletExists', { walletAddress: address });
-          const { exists } = response.data;
-          setDoesWalletExist(exists);
-          if (!exists) {
-            localStorage.setItem('walletAddress', address);
-          }
-        } catch (error) {
-          console.error('Error checking wallet:', error);
-          disconnect()
-        }
-      }
-    };
+  const [shouldCheckWallet, setShouldCheckWallet] = useState(false);
+  const prevAddressRef = useRef<string | undefined>();
 
-    // UNCOMMENT
-    // checkWalletExists();
+  useLayoutEffect(() => {
+    if (address !== prevAddressRef.current) {
+      prevAddressRef.current = address;
+      setShouldCheckWallet(true);
+    }
   }, [address]);
+
+  useEffect(() => {
+    if (shouldCheckWallet) {
+      const checkWalletExists = async () => {
+        if (address) {
+          try {
+            console.log("Calling backend");
+            const response = await axios.post('https://dkq9ddk2fc.execute-api.us-east-1.amazonaws.com/Prod/checkIfWalletExists', { walletAddress: address });
+            const { exists } = response.data;
+            console.log(response.data);
+            setDoesWalletExist(exists);
+            if (!exists) {
+              localStorage.setItem('walletAddress', address);
+              const response = await axios.post('https://dkq9ddk2fc.execute-api.us-east-1.amazonaws.com/Prod/add-wallet', { walletAddress: address });
+              console.log(response.data);
+            } 
+          } catch (error) {
+            console.error('Error checking wallet:', error);
+            disconnect();
+          }
+        }
+      };
+
+      checkWalletExists();
+      setShouldCheckWallet(false);
+    }
+  }, [shouldCheckWallet, address, disconnect]);
 
   return (
     <ConnectButton.Custom>
