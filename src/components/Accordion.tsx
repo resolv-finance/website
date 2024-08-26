@@ -19,7 +19,7 @@ const faqs = [
     id: 3,
     question: "How does this work?",
     answer:
-      '<a href="./Resolv-One-Pager.pdf" target="_blank" class="text-blue-dark hover:text-gray-light">Our One-Pager</a>',
+      '<a href="https://resolvfinance.notion.site/Resolv-One-Pager-8dc80169fff5439d930ad3567c443156" target="_blank" class="text-blue-dark hover:text-gray-light">Our One-Pager</a>',
   },
   {
     id: 4,

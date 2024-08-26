@@ -167,9 +167,11 @@ export default function Home() {
             <Image src={ArrowsIcon} alt="" className="mx-auto w-8" />
           </div>
           <div className="text-7xl mt-7 font-bold">
-            Your funds returned,
-            <br />
-            even <span className="text-blue-dark">after</span> being stolen.
+            <h1>Zero liability fraud protection</h1>
+            <p className="text-base leading-snug font-normal mt-4">
+              Theft happens, even to the best of us. One mistake shouldn&apos;t
+              cost you everything. We make sure it doesn&apos;t.
+            </p>
           </div>
         </div>
 
@@ -178,10 +180,13 @@ export default function Home() {
             <div className="bg-black rounded-full w-17 h-17 flex items-center text-center">
               <Image src={CheckIcon} alt="" className="mx-auto w-8" />
             </div>
-            <div className="text-7xl mt-6 font-bold">
-              Simple onboarding.
-              <br />
-              Peaceful <span className="text-blue-dark">protection</span>.
+            <div className="text-6xl mt-6 font-bold">
+              <h1>A decentralized vault</h1>
+              <p className="text-base leading-snug font-normal mt-4">
+                Forget blind trust. Our multi-sig contract with distributed
+                signing keys secures your funds without you ever having to worry
+                about being rugged.
+              </p>
             </div>
           </div>
 
@@ -189,10 +194,12 @@ export default function Home() {
             <div className="bg-black rounded-full w-17 h-17 flex items-center text-center">
               <Image src={ShieldIcon} alt="" className="mx-auto w-6" />
             </div>
-            <div className="text-7xl mt-6 font-bold">
-              Your security is our
-              <br />
-              <span className="text-blue-dark">top priority</span>.
+            <div className="text-6xl mt-6 font-bold">
+              <h1>And a decentralized jury system</h1>
+              <p className="text-base leading-snug font-normal mt-4">
+                Trusted insurance companies, on-chain forensic investigators,
+                and security pros ensure every case gets a fair review.
+              </p>
             </div>
           </div>
         </div>
@@ -240,8 +247,8 @@ export default function Home() {
               Step 2
             </div>
             <div className="text-10xl font-bold mt-6">
-              Submit
-              <br />a dispute
+              File
+              <br />a claim
             </div>
             <div className="text-lg mt-5">
               We hope you don&apos;t get your funds
