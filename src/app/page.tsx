@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import {
   ArrowsIcon,
@@ -13,36 +15,143 @@ import { Accordion } from "@/components/Accordion";
 import { ImageViewer } from "@/components/ImageViewer";
 import { EmailInput } from "@/components/EmailInput";
 import { Inter } from "next/font/google";
+import ResolvConnectButton from "@/components/ResolvConnectButton/ResolvConnectButton";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import WalletIcon from "../assets/icons/wallet.svg?url";
+import Sponsors from "@/components/Sponsors";
+import { useAccount } from "wagmi";
+import { useState, useEffect, useRef } from "react";
+import SpotSecured from "@/components/SpotSecured";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const account = useAccount();
+  const { address } = account;
+  const [isWalletConnected, setIsWalletConnected] = useState<boolean>(false);
+  let storedAddress = useRef<string | null>(null);
+
+  useEffect(() => {
+    storedAddress.current = localStorage.getItem("walletAddress");
+    console.log(account);
+  }, []);
+
+  useEffect(() => {
+    if (!address) {
+      if (storedAddress.current) {
+        setIsWalletConnected(true);
+      } else {
+        setIsWalletConnected(false);
+      }
+    } else {
+      setIsWalletConnected(true);
+    }
+  }, [address]);
+
+  useEffect(() => {
+    if (!address) {
+      localStorage.removeItem("walletAddress");
+      setIsWalletConnected(false);
+    }
+  }, [address]);
+
   return (
-    <>
-      <header className="flex max-w-[900px] mx-auto px-10">
+    <div>
+      <header className="flex justify-between w-full max-w-[900px] mx-auto px-10">
         <div className="flex items-center">
           <Image src={Logo} alt="Resolv" className="w-h-logo" />
           <span className="pl-2 text-3xl font-bold text-black">Resolv</span>
         </div>
+        {address ? (
+          <ResolvConnectButton styles="flex justify-center w-fit border border-2 border-black rounded-full py-2 px-4" />
+        ) : (
+          <ConnectButton.Custom>
+            {({
+              account,
+              chain,
+              openAccountModal,
+              openChainModal,
+              openConnectModal,
+              authenticationStatus,
+              mounted,
+            }) => {
+              // Note: If your app doesn't use authentication, you
+              // can remove all 'authenticationStatus' checks
+              const ready = mounted && authenticationStatus !== "loading";
+              const connected =
+                ready &&
+                account &&
+                chain &&
+                (!authenticationStatus ||
+                  authenticationStatus === "authenticated");
+
+              return (
+                <div
+                  {...(!ready && {
+                    "aria-hidden": true,
+                  })}
+                >
+                  {(() => {
+                    return (
+                      <button
+                        onClick={openConnectModal}
+                        type="button"
+                        className="flex justify-center w-fit border border-2 border-black rounded-full py-2 px-4"
+                      >
+                        <div className="h-[50%] flex items-center">
+                          {" "}
+                          {/* Container for the icon */}
+                        </div>
+                        {storedAddress.current || "Connect Wallet"}
+                      </button>
+                    );
+                  })()}
+                </div>
+              );
+            }}
+          </ConnectButton.Custom>
+        )}
       </header>
 
-      <div className="container px-10 md:px-0">
-        <h1 className="md:text-[5rem] text-10xl font-bold text-center leading-extra-tight mt-24">
-          Say goodbye to
+      <div className="container px-10 md:px-0 mt-24">
+        {isWalletConnected && (
+          <div className="flex items-center justify-center mb-2">
+            <div className="relative inline-block">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-green-200 rounded-full blur-sm"></div>
+              <SpotSecured />
+            </div>
+          </div>
+        )}
+
+        <h1 className="md:text-[4rem] text-10xl font-bold text-center leading-extra-tight mb-8">
+          Put stolen crypto
           <br />
-          stolen crypto.
+          back in your wallet.
         </h1>
         <h2
-          className={`${inter.className} text-center mt-6 font-regular text-2xl`}
+          className={`${inter.className} text-center mb-16 font-regular text-2xl`}
         >
-          Start protecting your crypto assets from
-          <br />
-          fraudulent activity in minutes.
+          Become and early adopter and connect your wallet to get $250,000 in
+          free protection upon release.
         </h2>
 
-        <EmailInput />
+        {isWalletConnected == false && (
+          <div className="flex items-center justify-center mb-16">
+            <div className="relative inline-block">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-green-200 rounded-full blur-sm"></div>
+              <ResolvConnectButton
+                icon={WalletIcon}
+                styles="relative h-[64px] px-6 py-3 bg-gradient-to-r from-[#D1FFE7] to-[#D0EAFF] shadow-resolv-button rounded-full text-gray-800 font-semibold flex items-center space-x-2 shadow-md transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] hover:translate-y-[1px] hover:shadow-none focus:outline-none"
+              />
+            </div>
+          </div>
+        )}
 
-        <div className="flex items-center justify-center mt-24">
+        {isWalletConnected == true && <EmailInput />}
+
+        <Sponsors />
+
+        <div className="flex items-center justify-center m-28">
           <span className="font-medium text-3xl pr-2">Explore</span>
           <Image src={CircleArrowIcon} alt="" className="w-explore" />
         </div>
@@ -195,6 +304,6 @@ export default function Home() {
           <span className="text-6xl font-bold text-black pl-2">Resolv</span>
         </div>
       </footer>
-    </>
+    </div>
   );
 }

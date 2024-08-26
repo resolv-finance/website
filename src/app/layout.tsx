@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { WalletContextProvider } from "@/contexts/WalletContextProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,11 +25,13 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body
-        className={`${inter.className} mt-8 font-raleway text-gray-dark transition-opacity ease-in-out opacity-0 <STATE>:opacity-100 duration-300`}
-      >
-        {children}
-      </body>
+      <WalletContextProvider>
+        <body
+          className={`${inter.className} mt-8 font-raleway text-gray-dark transition-opacity ease-in-out opacity-0 <STATE>:opacity-100 duration-300`}
+        >
+          {children}
+        </body>
+      </WalletContextProvider>
     </html>
   );
 }
