@@ -157,9 +157,9 @@ export default function Home() {
         </div>
 
         <h2 className="text-6xl mt-18 font-semibold">
-          Let&apos;s cut right to the chase.
+          Cold storage safety, hot wallet ease.
           <br />
-          No confusing crypto lingo.
+          Our Protection Protocol&#8482; offers:
         </h2>
 
         <div className="rounded-4xl p-12 bg-blue mt-11">
@@ -222,11 +222,8 @@ export default function Home() {
               your tokens
             </div>
             <div className="text-lg mt-5">
-              In seconds, your ERC-20 tokens
-              <br />
-              will be protected from being
-              <br />
-              stolen.
+              Warp your ERC-20s and recieve pTokens in exchange. A recoverable
+              alternative backed by your deposit.
             </div>
           </div>
 
@@ -275,8 +272,8 @@ export default function Home() {
               crypto back
             </div>
             <div className="text-lg mt-5">
-              Once the Resolvrs have viewed the case and voted in your favor,
-              your funds will be returned to a wallet of your choosing.
+              Once the Resolvrs verify the fraud, your funds are sent to your
+              designated recovery wallet.
             </div>
           </div>
 
