@@ -17,7 +17,7 @@ import { EmailInput } from "@/components/EmailInput";
 import { Inter } from "next/font/google";
 import ResolvConnectButton from "@/components/ResolvConnectButton/ResolvConnectButton";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import WalletIcon from "../assets/icons/wallet.svg?url";
+import WalletIcon from "../assets/icons/wallet.svg";
 import Sponsors from "@/components/Sponsors";
 import { useAccount } from "wagmi";
 import { useState, useEffect, useRef } from "react";

@@ -1,8 +1,8 @@
 import React from "react";
-import uiucicon from "../assets/icons/uiuc.svg?url";
-import orangedaoicon from "../assets/icons/orangedao.svg?url";
-import uchicagoicon from "../assets/icons/uchicago.svg?url";
-import ocaventuresicon from "../assets/icons/ocaventures.svg?url";
+import uiucicon from "../assets/icons/uiuc.svg";
+import orangedaoicon from "../assets/icons/orangedao.svg";
+import uchicagoicon from "../assets/icons/uchicago.svg";
+import ocaventuresicon from "../assets/icons/ocaventures.svg";
 import Image from "next/image";
 
 const Sponsors = () => {
