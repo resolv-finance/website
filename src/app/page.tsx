@@ -156,10 +156,9 @@ export default function Home() {
           <Image src={CircleArrowIcon} alt="" className="w-explore" />
         </div>
 
-        <h2 className="text-6xl mt-18 font-semibold">
-          Cold storage safety, hot wallet ease.
-          <br />
-          Our Protection Protocol&#8482; offers:
+        <h2 className="sm:text-6xl text-8xl mt-18 font-semibold">
+          Cold storage safety, hot wallet ease. Our Protection Protocol&#8482;
+          offers:
         </h2>
 
         <div className="rounded-4xl p-12 bg-blue mt-11">
@@ -243,10 +242,7 @@ export default function Home() {
             <div className="rounded-3xl bg-gradient-to-br from-blue to-green py-2 px-6 font-bold inline-block text-xl">
               Step 2
             </div>
-            <div className="text-10xl font-bold mt-6">
-              File
-              <br />a claim
-            </div>
+            <div className="text-10xl font-bold mt-6">File a claim</div>
             <div className="text-lg mt-5">
               We hope you don&apos;t get your funds
               <br />
