@@ -131,7 +131,7 @@ export default function Home() {
         <h2
           className={`${inter.className} text-center mb-16 font-regular text-2xl`}
         >
-          Become and early adopter and connect your wallet to get $250,000 in
+          Become an early adopter and connect your wallet to get $250,000 in
           free protection upon release.
         </h2>
 
