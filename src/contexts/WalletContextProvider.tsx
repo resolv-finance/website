@@ -4,31 +4,55 @@ import "@rainbow-me/rainbowkit/styles.css";
 import React, { useContext, useEffect, useState } from "react";
 import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { WagmiProvider } from "wagmi";
-import { baseSepolia } from "wagmi/chains";
+import {
+  mainnet,
+  polygon,
+  arbitrum,
+  optimism,
+  base,
+  polygonZkEvm,
+  bsc,
+  avalanche,
+  gnosis,
+  zksync,
+  linea,
+} from "wagmi/chains";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { MasterDataContext } from "./MasterDataProvider";
 import { SUPPORTED_CHAINS } from "@/utils/constants";
 import { _chains } from "@rainbow-me/rainbowkit/dist/config/getDefaultConfig";
 
 export function WalletContextProvider({ children }: { children?: any }) {
-  const [chainConfig, setChainConfig] = useState<_chains>([baseSepolia]);
+  const [chainConfig, setChainConfig] = useState<_chains>([
+    mainnet,
+    polygon,
+    arbitrum,
+    optimism,
+    base,
+    polygonZkEvm,
+    bsc,
+    avalanche,
+    gnosis,
+    zksync,
+    linea,
+  ]);
   const { supportedChains } = useContext(MasterDataContext);
 
-  const configureChains = () => {
-    const chains = [];
-    for (const chain of supportedChains) {
-      if (chain.chainId === SUPPORTED_CHAINS.BASE_SEPOLIA) {
-        chains.push(baseSepolia);
-      }
-    }
-    setChainConfig(chains as unknown as _chains);
-  };
+  // const configureChains = () => {
+  //   const chains = [];
+  //   for (const chain of supportedChains) {
+  //     if (chain.chainId === SUPPORTED_CHAINS.BASE_SEPOLIA) {
+  //       chains.push(baseSepolia);
+  //     }
+  //   }
+  //   setChainConfig(chains as unknown as _chains);
+  // };
 
-  useEffect(() => {
-    if (supportedChains.length) {
-      configureChains();
-    }
-  }, [supportedChains]);
+  // useEffect(() => {
+  //   if (supportedChains.length) {
+  //     configureChains();
+  //   }
+  // }, [supportedChains]);
 
   const config = getDefaultConfig({
     appName: "Resolv",
