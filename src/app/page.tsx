@@ -221,7 +221,7 @@ export default function Home() {
               your tokens
             </div>
             <div className="text-lg mt-5">
-              Warp your ERC-20s and recieve pTokens in exchange. A recoverable
+              Wrap your ERC-20s and recieve pTokens in exchange. A recoverable
               alternative backed by your deposit.
             </div>
           </div>
