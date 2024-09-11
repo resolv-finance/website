@@ -131,7 +131,7 @@ export default function Home() {
         <h2
           className={`${inter.className} text-center mb-16 font-regular text-2xl`}
         >
-          Become and early adopter and connect your wallet to get $250,000 in
+          Become an early adopter and connect your wallet to get $250,000 in
           free protection upon release.
         </h2>
 
@@ -221,7 +221,7 @@ export default function Home() {
               your tokens
             </div>
             <div className="text-lg mt-5">
-              Warp your ERC-20s and recieve pTokens in exchange. A recoverable
+              Wrap your ERC-20s and recieve pTokens in exchange. A recoverable
               alternative backed by your deposit.
             </div>
           </div>
