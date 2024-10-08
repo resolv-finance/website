@@ -1,51 +1,53 @@
 import React from "react";
 
 interface ReferralTrackerProps {
-  status: "bronze" | "silver" | "gold" | "diamond";
+  freeMonths: 3 | 6 | 9 | 12;
 }
 
-export const ReferralTracker: React.FC<ReferralTrackerProps> = ({ status }) => {
+export const ReferralTracker: React.FC<ReferralTrackerProps> = ({
+  freeMonths,
+}) => {
   const getStatusInfo = () => {
-    switch (status) {
-      case "bronze":
+    switch (freeMonths) {
+      case 3:
         return {
-          text: "You're 3 referrals away from 1 year",
-          months: 3,
+          status: "bronze",
+          text: "You're only 3 referrals away from 1 year",
           completed: 1,
           emoji: "🥉",
         };
-      case "silver":
+      case 6:
         return {
-          text: "You're 2 referrals away from 1 year",
-          months: 6,
+          statys: "silver",
+          text: "You're only 2 referrals away from 1 year",
           completed: 2,
           emoji: "🥈",
         };
-      case "gold":
+      case 9:
         return {
-          text: "You're 1 referral away from 1 year",
-          months: 9,
+          status: "gold",
+          text: "You're only 1 referral away from 1 year",
           completed: 3,
           emoji: "🥇",
         };
-      case "diamond":
+      case 12:
         return {
+          status: "diamond",
           text: "You've secured 1 year",
-          months: 12,
           completed: 4,
           emoji: "💎",
         };
       default:
         return {
+          status: "bronze",
           text: "You're 3 referrals away from 1 year",
-          months: 3,
           completed: 1,
           emoji: "🥉",
         };
     }
   };
 
-  const { text, months, completed, emoji } = getStatusInfo();
+  const { status, text, completed, emoji } = getStatusInfo();
 
   const getProgressBarColor = (index: number) => {
     const colors = ["#F0A868", "#C0C0C0", "#FFD700", "#B9F2FF"];
@@ -55,7 +57,7 @@ export const ReferralTracker: React.FC<ReferralTrackerProps> = ({ status }) => {
   return (
     <div className="bg-white rounded-xl p-4">
       <h3 className="text-lg font-semibold mb-2">Referral tracker</h3>
-      <p className="text-sm text-gray-600 mb-4">{text} of free protection.</p>
+      <p className="text-sm text-gray-600 mb-4">{text} of free protection!</p>
       <div className="flex space-x-1 mb-4">
         {[0, 1, 2, 3].map((index) => (
           <div
@@ -72,11 +74,11 @@ export const ReferralTracker: React.FC<ReferralTrackerProps> = ({ status }) => {
       <div className="flex items-center">
         <span className="text-sm mr-2">{emoji}</span>
         <span className="text-sm font-medium">
-          {status.charAt(0).toUpperCase() + status.slice(1)} status
+          {status!.charAt(0).toUpperCase() + status!.slice(1)} status
         </span>
       </div>
       <p className="text-sm font-semibold mt-2">
-        {months} months free protection!
+        {freeMonths} months free protection!
       </p>
     </div>
   );

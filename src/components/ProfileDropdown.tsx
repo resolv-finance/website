@@ -3,6 +3,8 @@ import Image from "next/image";
 import { useAccount, useBalance, useDisconnect } from "wagmi";
 import { shortenAddress } from "@/utils/functions";
 import { ReferralTracker } from "./ReferralTracker";
+import { REFERRAL_TRACKER_URL } from "@/utils/constants";
+import axios from "axios";
 
 interface ProfileDropdownProps {
   email: string;
@@ -18,17 +20,31 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
   const { data: balance } = useBalance({ address });
   const { disconnect } = useDisconnect();
   const [referralCode, setReferralCode] = useState("");
+  const [freeMonths, setFreeMonths] = useState(3);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   React.useEffect(() => {
-    // Dummy callback to get referral code
+    // Callback to get referral code
     const fetchReferralCode = async () => {
-      // Replace this with actual API call later
-      setReferralCode("ABC123");
+      const options = {
+        walletAddress: address,
+      };
+      try {
+        const response = await axios.post(
+          `${REFERRAL_TRACKER_URL}/wallet-referral-system`,
+          options
+        );
+        if (response.status == 200 || response.status == 201) {
+          const body = response.data.body;
+          const bodyObject = JSON.parse(body);
+          setReferralCode(bodyObject.referralCode);
+          setFreeMonths(bodyObject.freeMonths);
+        }
+      } catch (error) {}
     };
     fetchReferralCode();
-  }, []);
+  }, [address]);
 
   return (
     <div className="relative">
@@ -52,7 +68,7 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
             />
           )}
           <div className="mt-4">
-            <ReferralTracker status="diamond" />
+            <ReferralTracker freeMonths={freeMonths} />
           </div>
           <p className="text-sm mt-4">Referral Code: {referralCode}</p>
           <button
