@@ -1,5 +1,9 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { useAccount } from "wagmi";
+import { useSearchParams } from "next/navigation";
+import axios from "axios";
 import Image from "next/image";
 import {
   ArrowsIcon,
@@ -19,43 +23,66 @@ import ResolvConnectButton from "@/components/ResolvConnectButton/ResolvConnectB
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import WalletIcon from "../assets/icons/wallet.svg";
 import Sponsors from "@/components/Sponsors";
-import { useAccount } from "wagmi";
-import { useState, useEffect, useRef } from "react";
 import SpotSecured from "@/components/SpotSecured";
 import { ProfileDropdown } from "@/components/ProfileDropdown";
+import { REFERRAL_TRACKER_URL } from "@/utils/constants";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const account = useAccount();
-  const { address } = account;
-  const [isWalletConnected, setIsWalletConnected] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
-  let storedAddress = useRef<string | null>(null);
+  const [isWalletConnected, setIsWalletConnected] = useState<boolean>(false);
+  const [referralCode, setReferralCode] = useState<string>("");
+  const [freeMonths, setFreeMonths] = useState<number>(3);
+
+  const { address } = useAccount();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    storedAddress.current = localStorage.getItem("walletAddress");
-    console.log(account);
-  }, []);
-
-  useEffect(() => {
-    if (!address) {
-      if (storedAddress.current) {
-        setIsWalletConnected(true);
-      } else {
-        setIsWalletConnected(false);
-      }
-    } else {
-      setIsWalletConnected(true);
+    const urlReferralCode = searchParams.get("referralCode");
+    console.log("Referral code:", urlReferralCode);
+    if (urlReferralCode) {
+      localStorage.setItem("referralCode", urlReferralCode);
     }
-  }, [address]);
+  }, [searchParams]);
 
   useEffect(() => {
-    if (!address) {
-      localStorage.removeItem("walletAddress");
+    if (address) {
+      setIsWalletConnected(true);
+      fetchReferralCode();
+    } else {
       setIsWalletConnected(false);
     }
   }, [address]);
+
+  const fetchReferralCode = async () => {
+    if (!address) return;
+
+    const storedReferralCode = localStorage.getItem("referralCode");
+
+    const options = {
+      walletAddress: address,
+      referredBy: storedReferralCode || undefined,
+    };
+
+    try {
+      const response = await axios.post(
+        `${REFERRAL_TRACKER_URL}/wallet-referral-system`,
+        options
+      );
+
+      if (response.status === 200 || response.status === 201) {
+        const bodyObject = JSON.parse(response.data.body);
+        setReferralCode(bodyObject.referralCode);
+        setFreeMonths(bodyObject.freeMonths);
+
+        // Clear the stored referral code after successful signup
+        localStorage.removeItem("referralCode");
+      }
+    } catch (error) {
+      console.error("Error fetching referral code:", error);
+    }
+  };
 
   return (
     <div>
@@ -65,7 +92,12 @@ export default function Home() {
           <span className="pl-2 text-3xl font-bold text-black">Resolv</span>
         </div>
         {isWalletConnected ? (
-          <ProfileDropdown email={email} onEmailChange={setEmail} />
+          <ProfileDropdown
+            email={email}
+            onEmailChange={setEmail}
+            referralCode={referralCode}
+            freeMonths={freeMonths}
+          />
         ) : (
           <ConnectButton.Custom>
             {({
@@ -77,8 +109,6 @@ export default function Home() {
               authenticationStatus,
               mounted,
             }) => {
-              // Note: If your app doesn't use authentication, you
-              // can remove all 'authenticationStatus' checks
               const ready = mounted && authenticationStatus !== "loading";
               const connected =
                 ready &&
@@ -93,21 +123,14 @@ export default function Home() {
                     "aria-hidden": true,
                   })}
                 >
-                  {(() => {
-                    return (
-                      <button
-                        onClick={openConnectModal}
-                        type="button"
-                        className="flex justify-center w-fit border border-2 border-black rounded-full py-2 px-4"
-                      >
-                        <div className="h-[50%] flex items-center">
-                          {" "}
-                          {/* Container for the icon */}
-                        </div>
-                        {storedAddress.current || "Connect Wallet"}
-                      </button>
-                    );
-                  })()}
+                  <button
+                    onClick={openConnectModal}
+                    type="button"
+                    className="flex justify-center w-fit border border-2 border-black rounded-full py-2 px-4"
+                  >
+                    <div className="h-[50%] flex items-center"> </div>
+                    Connect Wallet
+                  </button>
                 </div>
               );
             }}

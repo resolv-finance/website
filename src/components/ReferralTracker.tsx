@@ -55,7 +55,7 @@ export const ReferralTracker: React.FC<ReferralTrackerProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-xl p-4">
+    <div className="bg-white">
       <h3 className="text-lg font-semibold mb-2">Referral tracker</h3>
       <p className="text-sm text-gray-600 mb-4">{text} of free protection!</p>
       <div className="flex space-x-1 mb-4">
