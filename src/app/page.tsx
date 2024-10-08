@@ -22,6 +22,7 @@ import Sponsors from "@/components/Sponsors";
 import { useAccount } from "wagmi";
 import { useState, useEffect, useRef } from "react";
 import SpotSecured from "@/components/SpotSecured";
+import { ProfileDropdown } from "@/components/ProfileDropdown";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +30,7 @@ export default function Home() {
   const account = useAccount();
   const { address } = account;
   const [isWalletConnected, setIsWalletConnected] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
   let storedAddress = useRef<string | null>(null);
 
   useEffect(() => {
@@ -62,8 +64,8 @@ export default function Home() {
           <Image src={Logo} alt="Resolv" className="w-h-logo" />
           <span className="pl-2 text-3xl font-bold text-black">Resolv</span>
         </div>
-        {address ? (
-          <ResolvConnectButton styles="flex justify-center w-fit border border-2 border-black rounded-full py-2 px-4" />
+        {isWalletConnected ? (
+          <ProfileDropdown email={email} onEmailChange={setEmail} />
         ) : (
           <ConnectButton.Custom>
             {({
@@ -147,7 +149,7 @@ export default function Home() {
           </div>
         )}
 
-        {isWalletConnected == true && <EmailInput />}
+        {isWalletConnected && !email && <EmailInput onEmailSubmit={setEmail} />}
 
         <Sponsors />
 
