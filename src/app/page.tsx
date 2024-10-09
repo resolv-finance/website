@@ -65,6 +65,8 @@ export default function Home() {
       referredBy: storedReferralCode || undefined,
     };
 
+    console.log("Sending request with options", options);
+
     try {
       const response = await axios.post(
         `${REFERRAL_TRACKER_URL}/wallet-referral-system`,
@@ -73,6 +75,7 @@ export default function Home() {
 
       if (response.status === 200 || response.status === 201) {
         const bodyObject = JSON.parse(response.data.body);
+        console.log(bodyObject);
         setReferralCode(bodyObject.referralCode);
         setFreeMonths(bodyObject.freeMonths);
 

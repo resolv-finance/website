@@ -18,7 +18,7 @@ export const ReferralTracker: React.FC<ReferralTrackerProps> = ({
         };
       case 6:
         return {
-          statys: "silver",
+          status: "silver",
           text: "You're only 2 referrals away from 1 year",
           completed: 2,
           emoji: "🥈",
@@ -48,6 +48,8 @@ export const ReferralTracker: React.FC<ReferralTrackerProps> = ({
   };
 
   const { status, text, completed, emoji } = getStatusInfo();
+
+  console.log(status, text, completed, emoji);
 
   const getProgressBarColor = (index: number) => {
     const colors = ["#F0A868", "#C0C0C0", "#FFD700", "#B9F2FF"];
