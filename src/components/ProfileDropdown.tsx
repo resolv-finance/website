@@ -34,6 +34,7 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
   const { disconnect } = useDisconnect();
 
   const toggleDropdown = () => setIsOpen(!isOpen);
+  const safeFreeMonths = freeMonths as 3 | 6 | 9 | 12;
 
   const copyReferralLink = () => {
     const link = `https://resolv.finance?referredBy=${referralCode}`;
@@ -51,7 +52,7 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
       {isOpen && (
         <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg p-4">
           <p className="text-sm">
-            <strong>Wallet Address:</strong> {shortenAddress(address)}
+            <strong>Wallet Address:</strong> {address ? shortenAddress(address) : 'No address'}
           </p>
           <p className="text-sm mt-2">
             <strong>Balance:</strong> {balance?.formatted} {balance?.symbol}
@@ -64,7 +65,7 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
             onChange={(e) => onEmailChange(e.target.value)}
           />
           <div className="mt-4">
-            <ReferralTracker freeMonths={freeMonths} />
+            <ReferralTracker freeMonths={safeFreeMonths} />
           </div>
           <div
             className="mt-4 p-2 border border-dashed border-gray-300 bg-gray-50 rounded-md cursor-pointer hover:bg-gray-100 transition-colors duration-200 flex justify-between items-center"

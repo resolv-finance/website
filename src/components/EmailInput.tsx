@@ -1,12 +1,16 @@
 "use client";
 import { useState } from "react";
 
+interface EmailInputProps {
+  onEmailSubmit: (email: string) => void;
+}
+
 type ServerRepsonse = {
   status: string;
   message: string;
 };
 
-export function EmailInput() {
+export const EmailInput: React.FC<EmailInputProps> = ({ onEmailSubmit }) => {
   const [serverResponse, setServerResponse] = useState({
     status: "idle",
     message: "",
