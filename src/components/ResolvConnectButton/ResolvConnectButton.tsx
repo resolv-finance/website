@@ -13,13 +13,14 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) => {
+const ResolvConnectButton = ({ styles, icon }: { styles: string, icon?: string }) => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [doesWalletExist, setDoesWalletExist] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [ipAddress, setIpAddress] = useState<string | null>(null); // Store IP Address
   const account = useAccount();
-  const {address} = account
-  const {disconnect} = useDisconnect()
+  const { address } = account
+  const { disconnect } = useDisconnect()
 
   useEffect(() => {
     setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
@@ -46,31 +47,55 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
   }, [address]);
 
   useEffect(() => {
-    if (shouldCheckWallet) {
-      const checkWalletExists = async () => {
-        if (address) {
-          try {
-            console.log("Calling backend");
-            const response = await axios.post('https://dkq9ddk2fc.execute-api.us-east-1.amazonaws.com/Prod/checkIfWalletExists', { walletAddress: address });
-            const { exists } = response.data;
-            console.log(response.data);
-            setDoesWalletExist(exists);
-            if (!exists) {
-              localStorage.setItem('walletAddress', address);
-              const response = await axios.post('https://dkq9ddk2fc.execute-api.us-east-1.amazonaws.com/Prod/add-wallet', { walletAddress: address });
-              console.log(response.data);
-            } 
-          } catch (error) {
-            console.error('Error checking wallet:', error);
-            disconnect();
-          }
-        }
-      };
+    const fetchIpAddress = async () => {
+      try {
+        const response = await axios.get('https://api.ipify.org?format=json');
+        setIpAddress(response.data.ip);
+      } catch (error) {
+        console.error('Error fetching IP address:', error);
+      }
+    };
 
-      checkWalletExists();
-      setShouldCheckWallet(false);
-    }
+    fetchIpAddress();
+  }, []);
+
+  useEffect(() => {
+    const checkWalletExists = async () => {
+      if (address) {
+        console.log(ipAddress, "ip");
+        try {
+          console.log("Calling backend with wallet address:", address);
+          // Test by using a static IP address instead of fetching dynamically
+
+          const response = await axios.post(
+            'https://dkq9ddk2fc.execute-api.us-east-1.amazonaws.com/Prod/wallet-referral-system',
+            {
+              walletAddress: address,
+              ipAddress: ipAddress  
+            }
+          );
+
+          console.log('Response from API:', response.data);
+          const { exists } = response.data;
+          setDoesWalletExist(exists);
+
+          if (!exists) {
+            localStorage.setItem('walletAddress', address);
+          }
+        } catch (error) {
+          console.error('Error checking wallet:', error);
+          disconnect();
+        }
+      } else {
+        console.log('Address not available yet');
+      }
+    };
+
+
+    checkWalletExists();
+    setShouldCheckWallet(false);
   }, [shouldCheckWallet, address, disconnect]);
+
 
   return (
     <ConnectButton.Custom>
@@ -82,8 +107,6 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
         openConnectModal,
         mounted,
       }) => {
-        // Note: If your app doesn't use authentication, you
-        // can remove all 'authenticationStatus' checks
         const ready = mounted;
         const connected =
           ready &&
@@ -99,20 +122,20 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
             {(() => {
               if (!connected) {
                 return (
-                    <button
-                      onClick={openConnectModal}
-                      type="button"
-                      className={cn(styles, "flex gap-2")}
-                    >
-                      <div className="h-[50%] flex items-center"> {/* Container for the icon */}
-                        {icon && <Image 
-                          src={icon!} 
-                          alt="icon" 
-                          className="h-full w-auto transform rotate-12" // Make height 100% of parent (which is 80% of button height)
-                        />}
-                      </div>
-                      Connect Wallet
-                    </button>
+                  <button
+                    onClick={openConnectModal}
+                    type="button"
+                    className={cn(styles, "flex gap-2")}
+                  >
+                    <div className="h-[50%] flex items-center"> {/* Container for the icon */}
+                      {icon && <Image
+                        src={icon!}
+                        alt="icon"
+                        className="h-full w-auto transform rotate-12" // Make height 100% of parent (which is 80% of button height)
+                      />}
+                    </div>
+                    Connect Wallet
+                  </button>
                 );
               }
               if (chain.unsupported) {
