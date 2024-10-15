@@ -81,7 +81,7 @@ function HomeComponent() {
     <div>
       <header className="flex justify-between w-full max-w-[900px] mx-auto px-10">
         <div className="flex items-center">
-          <img src="../images/logo.png" alt="Resolv" className="w-h-logo" />
+          <img src="/images/logo.png" alt="Resolv" className="w-h-logo" />
           <span className="pl-2 text-3xl font-bold text-black">Resolv</span>
         </div>
         {isWalletConnected ? (
@@ -171,7 +171,7 @@ function HomeComponent() {
 
         <div className="flex items-center justify-center m-28">
           <span className="font-medium text-3xl pr-2">Explore</span>
-          <img src='../images/CircleArrowIcon.png' alt="Circle Arrow" className="w-explore" />
+          <img src='/images/CircleArrowIcon.png' alt="Circle Arrow" className="w-explore" />
         </div>
 
         <h2 className="sm:text-6xl text-8xl mt-18 font-semibold">
@@ -181,7 +181,7 @@ function HomeComponent() {
 
         <div className="rounded-4xl p-12 bg-blue mt-11">
           <div className="bg-black rounded-full w-17 h-17 flex items-center text-center">
-            <img src="../images/ArrowsIcon.png" alt="" className="mx-auto w-8" />
+            <img src="/images/ArrowsIcon.png" alt="" className="mx-auto w-8" />
           </div>
           <div className="text-7xl mt-7 font-bold">
             <h1>Zero liability fraud protection</h1>
@@ -194,7 +194,7 @@ function HomeComponent() {
         <div className="grid md:grid-cols-2 gap-6 mt-6">
           <div className="rounded-4xl p-12 bg-green">
             <div className="bg-black rounded-full w-17 h-17 flex items-center text-center">
-              <img src="../images/CheckIcon.png" alt="" className="mx-auto w-8" />
+              <img src="/images/CheckIcon.png" alt="" className="mx-auto w-8" />
             </div>
             <div className="text-6xl mt-6 font-bold">
               <h1>A decentralized vault</h1>
@@ -207,7 +207,7 @@ function HomeComponent() {
           </div>
           <div className="rounded-4xl p-12 bg-gray">
             <div className="bg-black rounded-full w-17 h-17 flex items-center text-center">
-              <img src="../images/ShieldIcon.png" alt="" className="mx-auto w-6" />
+              <img src="/images/ShieldIcon.png" alt="" className="mx-auto w-6" />
             </div>
             <div className="text-6xl mt-6 font-bold">
               <h1>And a decentralized jury system</h1>
@@ -241,7 +241,7 @@ function HomeComponent() {
           <div className="rounded-4xl p-6 flex items-center bg-gray h-98">
             <div className="image-container bg-white h-full w-full rounded-4xl flex items-center">
               <img
-                src="../images/CongratsBox.png"
+                src="/images/CongratsBox.png"
                 alt=""
                 className="mx-auto bg-white rounded-2xl w-69"
               />
@@ -263,7 +263,7 @@ function HomeComponent() {
             </div>
           </div>
           <div className="rounded-4xl pr-8 py-20 flex items-center bg-gray h-98">
-            <img src="../images/Resolvbuttoncloseup.png" alt="" />
+            <img src="/images/Resolvbuttoncloseup.png" alt="" />
           </div>
         </div>
         <div className="grid md:grid-cols-2 md:gap-8 mt-24 items-center">
@@ -283,7 +283,7 @@ function HomeComponent() {
           </div>
           <div className="rounded-4xl p-16 flex items-center bg-gray h-98">
             <img
-              src="../images/GoodNewsBox.png"
+              src="/images/GoodNewsBox.png"
               alt=""
               className="mx-auto bg-white rounded-2xl w-fit"
             />
@@ -305,7 +305,7 @@ function HomeComponent() {
       </div>
       <footer className="my-24 container px-6">
         <div className="flex items-center">
-          <img src="../images/logo.png" alt="Resolv" className="w-h-logo" />
+          <img src="/images/logo.png" alt="Resolv" className="w-h-logo" />
           <span className="text-6xl font-bold text-black pl-2">Resolv</span>
         </div>
       </footer>
