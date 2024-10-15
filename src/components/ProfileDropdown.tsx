@@ -32,6 +32,7 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [isEditing, setIsEditing] = useState(true);
+  const [toastMessage, setToastMessage] = useState("");
   const [tempEmail, setTempEmail] = useState(email);
   const { address } = useAccount();
   const { data: balance } = useBalance({ address });
@@ -44,19 +45,41 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
   const copyReferralLink = () => {
     const link = `https://resolv.finance?referredBy=${referralCode}`;
     navigator.clipboard.writeText(link).then(() => {
+      setToastMessage("Referral link copied successfully!");
       setShowToast(true);
       setTimeout(() => setShowToast(false), 3000);
     });
   };
 
-  const handleEmailSave = () => {
+  const handleEmailSave = async () => {
     if (isEditing) {
-      onEmailChange(tempEmail);
-      setIsEditing(false);
+      try {
+        const response = await axios.post(
+          "https://dkq9ddk2fc.execute-api.us-east-1.amazonaws.com/Prod/add-email-to-wallet",
+          {
+            walletAddress: address,
+            email: tempEmail,
+          }
+        );
+
+        if (response.status === 200) {
+          onEmailChange(tempEmail);
+          setIsEditing(false);
+          setToastMessage("Email updated successfully!");
+          setShowToast(true);
+        } else {
+          throw new Error("Failed to update email");
+        }
+      } catch (error) {
+        console.error("Error updating email:", error);
+        setToastMessage("Failed to update email. Please try again.");
+        setShowToast(true);
+      }
     } else {
       setIsEditing(true);
       setTimeout(() => inputRef.current?.focus(), 0);
     }
+    setTimeout(() => setShowToast(false), 3000);
   };
 
   useEffect(() => {
@@ -133,11 +156,11 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
           onOpenChange={setShowToast}
         >
           <Toast.Title className="[grid-area:_title] mb-[5px] font-medium text-slate900 text-[15px]">
-            Copied to clipboard
+            Notification
           </Toast.Title>
           <Toast.Description asChild>
             <p className="[grid-area:_description] m-0 text-slate400 text-[13px] leading-[1.3]">
-              Referral link copied successfully!
+              {toastMessage}
             </p>
           </Toast.Description>
         </Toast.Root>
