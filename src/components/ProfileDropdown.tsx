@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { useAccount, useBalance, useDisconnect } from "wagmi";
 import { shortenAddress } from "@/utils/functions";
@@ -11,6 +11,8 @@ import {
   UserCircle,
   Wallet,
   Copy,
+  FloppyDisk,
+  PencilSimple,
 } from "@phosphor-icons/react/dist/ssr";
 import * as Toast from "@radix-ui/react-toast";
 
@@ -29,9 +31,12 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [isEditing, setIsEditing] = useState(true);
+  const [tempEmail, setTempEmail] = useState(email);
   const { address } = useAccount();
   const { data: balance } = useBalance({ address });
   const { disconnect } = useDisconnect();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
   const safeFreeMonths = freeMonths as 3 | 6 | 9 | 12;
@@ -44,6 +49,20 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
     });
   };
 
+  const handleEmailSave = () => {
+    if (isEditing) {
+      onEmailChange(tempEmail);
+      setIsEditing(false);
+    } else {
+      setIsEditing(true);
+      setTimeout(() => inputRef.current?.focus(), 0);
+    }
+  };
+
+  useEffect(() => {
+    setTempEmail(email);
+  }, [email]);
+
   return (
     <div className="relative">
       <button onClick={toggleDropdown} className="p-2 rounded-full bg-gray-200">
@@ -52,18 +71,38 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
       {isOpen && (
         <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg p-4">
           <p className="text-sm">
-            <strong>Wallet Address:</strong> {address ? shortenAddress(address) : 'No address'}
+            <strong>Wallet Address:</strong>{" "}
+            {address ? shortenAddress(address) : "No address"}
           </p>
           <p className="text-sm mt-2">
             <strong>Balance:</strong> {balance?.formatted} {balance?.symbol}
           </p>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            className="mt-2 w-full p-2 border rounded-md text-sm placeholder-red-300"
-            value={email}
-            onChange={(e) => onEmailChange(e.target.value)}
-          />
+          <div className="mt-2 relative">
+            <input
+              ref={inputRef}
+              type="email"
+              placeholder="Enter your email"
+              className="w-full p-2 pr-10 border rounded-md text-sm placeholder-red-300"
+              value={tempEmail}
+              onChange={(e) => setTempEmail(e.target.value)}
+              disabled={!isEditing}
+            />
+            <button
+              onClick={handleEmailSave}
+              className="absolute m-1 right-0 top-0 bottom-0 px-3 rounded-md transition-all duration-200 ease-[cubic-bezier(0.25,0.1,0.25,1)] active:translate-y-[1px] active:shadow-inner"
+              style={{
+                background: isEditing
+                  ? "#E5E7EB"
+                  : "linear-gradient(to right, #D1FFE7, #D0EAFF)",
+              }}
+            >
+              {isEditing ? (
+                <FloppyDisk size={20} />
+              ) : (
+                <PencilSimple size={20} />
+              )}
+            </button>
+          </div>
           <div className="mt-4">
             <ReferralTracker freeMonths={safeFreeMonths} />
           </div>

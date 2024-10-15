@@ -59,6 +59,11 @@ const config: Config = {
       "11xl": "3.9375rem", // 63px
     },
     extend: {
+      extend: {
+        transitionTimingFunction: {
+          "button-press": "cubic-bezier(0.25, 0.1, 0.25, 1)",
+        },
+      },
       keyframes: {
         hide: {
           from: { opacity: "1" },
