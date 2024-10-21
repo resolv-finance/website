@@ -1,13 +1,16 @@
-'use client';
+"use client";
 import { useState } from "react";
+import { StaticImageData } from "next/image"; // Import StaticImageData type
 import { Logo, ProtectBox, ReturnStolenBox, SwapTokensBox, WalletIcon } from "../images/index"; // Make sure these paths are correct
 
 export function ImageViewer() {
-  const [currentImg, setCurrentImg] = useState(ProtectBox);
+  // Make sure currentImg and newImg are typed as StaticImageData
+  const [currentImg, setCurrentImg] = useState<StaticImageData>(ProtectBox);
   const [imgChanged, setImageChanged] = useState(false);
 
-  const imageClickHandler = (newImg: string) => {
-    if (newImg === currentImg) {
+  // Ensure newImg is also of type StaticImageData
+  const imageClickHandler = (newImg: StaticImageData) => {
+    if (newImg.src === currentImg.src) {
       return;
     }
     setImageChanged(true);
@@ -20,9 +23,8 @@ export function ImageViewer() {
   return (
     <>
       <div className="rounded-4xl p-6 bg-gradient-to-br from-blue to-green mt-12">
-        {/* Use <img> instead of next/image for static export */}
         <img
-          src={currentImg}
+          src={currentImg.src} 
           alt=""
           className={`bg-white rounded-xl w-full transition-opacity duration-300 ease-linear ${imgChanged ? "opacity-0" : "opacity-100"}`}
         />
@@ -31,7 +33,7 @@ export function ImageViewer() {
       <div className="grid grid-cols-3 gap-7 mt-7">
         {/* Protect your crypto section */}
         <div
-          className={`rounded-25xl p-8 ${currentImg === ProtectBox ? "bg-gradient-to-br from-blue to-green" : "bg-gray cursor-pointer"}`}
+          className={`rounded-25xl p-8 ${currentImg.src === ProtectBox.src ? "bg-gradient-to-br from-blue to-green" : "bg-gray cursor-pointer"}`}
           onClick={() => imageClickHandler(ProtectBox)}
         >
           <div className="w-13 h-12 flex items-center text-center mx-auto md:mx-0">
@@ -47,7 +49,7 @@ export function ImageViewer() {
 
         {/* Swap your tokens section */}
         <div
-          className={`rounded-25xl p-8 ${currentImg === SwapTokensBox ? "bg-gradient-to-br from-blue to-green" : "bg-gray cursor-pointer"}`}
+          className={`rounded-25xl p-8 ${currentImg.src === SwapTokensBox.src ? "bg-gradient-to-br from-blue to-green" : "bg-gray cursor-pointer"}`}
           onClick={() => imageClickHandler(SwapTokensBox)}
         >
           <div className="w-10 h-12 flex items-center text-center mx-auto md:mx-0">
@@ -62,7 +64,7 @@ export function ImageViewer() {
 
         {/* Return stolen funds section */}
         <div
-          className={`rounded-25xl p-8 ${currentImg === ReturnStolenBox ? "bg-gradient-to-br from-blue to-green" : "bg-gray cursor-pointer"}`}
+          className={`rounded-25xl p-8 ${currentImg.src === ReturnStolenBox.src ? "bg-gradient-to-br from-blue to-green" : "bg-gray cursor-pointer"}`}
           onClick={() => imageClickHandler(ReturnStolenBox)}
         >
           <div className="w-8 h-12 flex items-center text-center mx-auto md:mx-0">
