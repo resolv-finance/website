@@ -17,6 +17,7 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [doesWalletExist, setDoesWalletExist] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [ipAddress, setIpAddress] = useState<string | null>(null);
   const account = useAccount();
   const {address} = account
   const {disconnect} = useDisconnect()
@@ -45,31 +46,52 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
     }
   }, [address]);
 
-  useEffect(() => {
-    if (shouldCheckWallet) {
-      const checkWalletExists = async () => {
-        if (address) {
-          try {
-            console.log("Calling backend");
-            const response = await axios.post('https://dkq9ddk2fc.execute-api.us-east-1.amazonaws.com/Prod/checkIfWalletExists', { walletAddress: address });
-            const { exists } = response.data;
-            console.log(response.data);
-            setDoesWalletExist(exists);
-            if (!exists) {
-              localStorage.setItem('walletAddress', address);
-              const response = await axios.post('https://dkq9ddk2fc.execute-api.us-east-1.amazonaws.com/Prod/add-wallet', { walletAddress: address });
-              console.log(response.data);
-            } 
-          } catch (error) {
-            console.error('Error checking wallet:', error);
-            disconnect();
-          }
-        }
-      };
 
-      checkWalletExists();
-      setShouldCheckWallet(false);
-    }
+  useEffect(() => {
+    const fetchIpAddress = async () => {
+      try {
+        const response = await axios.get('https://api.ipify.org?format=json');
+        setIpAddress(response.data.ip);
+      } catch (error) {
+        console.error('Error fetching IP address:', error);
+      }
+    };
+
+    fetchIpAddress();
+  }, []);
+
+  useEffect(() => {
+    const checkWalletExists = async () => {
+      if (address) {
+        try {
+          
+          const response = await axios.post(
+            'https://dkq9ddk2fc.execute-api.us-east-1.amazonaws.com/Prod/wallet-referral-system',
+            {
+              walletAddress: address,
+              ipAddress: ipAddress  
+            }
+          );
+
+          console.log('Response from API:', response.data);
+          const { exists } = response.data;
+          setDoesWalletExist(exists);
+
+          if (!exists) {
+            localStorage.setItem('walletAddress', address);
+          }
+        } catch (error) {
+          console.error('Error checking wallet:', error);
+          disconnect();
+        }
+      } else {
+        console.log('Address not available yet');
+      }
+    };
+
+
+    checkWalletExists();
+    setShouldCheckWallet(false);
   }, [shouldCheckWallet, address, disconnect]);
 
   return (
