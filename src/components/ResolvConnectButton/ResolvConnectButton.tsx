@@ -6,7 +6,7 @@ import "./ResolvConnectButton.css";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { useAccount, useDisconnect } from 'wagmi';
-import axios from 'axios'; // Make sure to install axios if not already installed
+import axios from 'axios';
 import Image from "../../../node_modules/next/image";
 
 export function cn(...inputs: ClassValue[]) {
@@ -18,12 +18,19 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
   const [doesWalletExist, setDoesWalletExist] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [ipAddress, setIpAddress] = useState<string | null>(null);
+  const [referredBy, setReferredBy] = useState<string | null>(null);
   const account = useAccount();
   const {address} = account
   const {disconnect} = useDisconnect()
 
   useEffect(() => {
     setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+
+    const searchParams = new URLSearchParams(window.location.search);
+    const referralCode = searchParams.get('referredBy');
+    if (referralCode) {
+      setReferredBy(referralCode); // Store the referral code if present
+    }
   }, []);
 
   useEffect(() => {
@@ -64,7 +71,7 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
     const checkWalletExists = async () => {
       if (address) {
         try {
-          
+
           const response = await axios.post(
             'https://dkq9ddk2fc.execute-api.us-east-1.amazonaws.com/Prod/wallet-referral-system',
             {
@@ -73,7 +80,10 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
             }
           );
 
-          console.log('Response from API:', response.data);
+          if (referredBy) {
+            payload.referredBy = referredBy;
+          }
+
           const { exists } = response.data;
           setDoesWalletExist(exists);
 
