@@ -41,6 +41,7 @@ function HomeComponent() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
+    console.log('v:1.1.1')  //version number for tracking builds
     const urlReferredByCode = searchParams.get("referredBy");
     console.log("Referral code:", urlReferredByCode);
     if (urlReferredByCode) {
