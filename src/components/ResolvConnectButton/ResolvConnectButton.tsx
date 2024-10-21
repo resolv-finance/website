@@ -71,18 +71,20 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
     const checkWalletExists = async () => {
       if (address) {
         try {
-
-          const response = await axios.post(
-            'https://dkq9ddk2fc.execute-api.us-east-1.amazonaws.com/Prod/wallet-referral-system',
-            {
-              walletAddress: address,
-              ipAddress: ipAddress  
-            }
-          );
+          
+          const payload: any = {
+            walletAddress: address,
+            ipAddress: ipAddress
+          };
 
           if (referredBy) {
             payload.referredBy = referredBy;
           }
+
+          const response = await axios.post(
+            'https://dkq9ddk2fc.execute-api.us-east-1.amazonaws.com/Prod/wallet-referral-system',
+            payload
+          );
 
           const { exists } = response.data;
           setDoesWalletExist(exists);
