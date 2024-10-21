@@ -26,6 +26,8 @@ import Sponsors from "@/components/Sponsors";
 import SpotSecured from "@/components/SpotSecured";
 import { ProfileDropdown } from "@/components/ProfileDropdown";
 import { REFERRAL_TRACKER_URL } from "@/utils/constants";
+import { TwitterLogo, LinkedinLogo, DiscordLogo } from "@phosphor-icons/react";
+import { XLogo } from "@phosphor-icons/react/dist/ssr";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -314,10 +316,45 @@ function HomeComponent() {
           <Accordion />
         </div>
       </div>
-      <footer className="my-24 container px-6">
+      <footer className="my-24 container px-6 relative">
         <div className="flex items-center">
           <Image src={Logo} alt="Resolv" className="w-f-logo" />
           <span className="text-6xl font-bold text-black pl-2">Resolv</span>
+        </div>
+        <div className="absolute bottom-0 right-6 flex space-x-4">
+          <a
+            href="https://twitter.com/resolvcrypto"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <XLogo
+              size={24}
+              weight="fill"
+              className="text-gray-500 hover:text-gray-700 transition-colors"
+            />
+          </a>
+          <a
+            href="https://www.linkedin.com/company/resolvcrypto"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <LinkedinLogo
+              size={24}
+              weight="fill"
+              className="text-gray-500 hover:text-gray-700 transition-colors"
+            />
+          </a>
+          <a
+            href="https://discord.gg/ZJAbCKCW"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <DiscordLogo
+              size={24}
+              weight="fill"
+              className="text-gray-500 hover:text-gray-700 transition-colors"
+            />
+          </a>
         </div>
       </footer>
     </div>
