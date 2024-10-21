@@ -41,10 +41,10 @@ function HomeComponent() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const urlReferralCode = searchParams.get("referralCode");
-    console.log("Referral code:", urlReferralCode);
-    if (urlReferralCode) {
-      localStorage.setItem("referralCode", urlReferralCode);
+    const urlReferredByCode = searchParams.get("referredBy");
+    console.log("Referral code:", urlReferredByCode);
+    if (urlReferredByCode) {
+      localStorage.setItem("referredBy", urlReferredByCode);
     }
   }, [searchParams]);
 
@@ -79,7 +79,12 @@ function HomeComponent() {
         const bodyObject = JSON.parse(response.data.body);
         console.log(bodyObject);
         setReferralCode(bodyObject.referralCode);
-        setFreeMonths(bodyObject.freeMonths);
+
+        if(localStorage.getItem("freeMonths")){ //this is not a good solution but it works for now. I have absolutely no clue as to why it returns 3 months at first, then 6 months. It's all the same backend function.
+          setFreeMonths(6);
+        } else {
+          setFreeMonths(bodyObject.freeMonths);
+        }
 
         // Clear the stored referral code after successful signup
         localStorage.removeItem("referralCode");

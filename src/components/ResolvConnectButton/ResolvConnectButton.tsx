@@ -26,8 +26,8 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
   useEffect(() => {
     setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
 
-    const searchParams = new URLSearchParams(window.location.search);
-    const referralCode = searchParams.get('referredBy');
+    // Check for 'referredBy' in localStorage
+    const referralCode = localStorage.getItem('referredBy');
     if (referralCode) {
       setReferredBy(referralCode); // Store the referral code if present
     }
@@ -71,7 +71,7 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
     const checkWalletExists = async () => {
       if (address) {
         try {
-          
+
           const payload: any = {
             walletAddress: address,
             ipAddress: ipAddress
@@ -79,6 +79,7 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
 
           if (referredBy) {
             payload.referredBy = referredBy;
+            localStorage.setItem("freeMonths", "6");
           }
 
           const response = await axios.post(
