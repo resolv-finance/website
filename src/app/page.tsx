@@ -60,8 +60,6 @@ function HomeComponent() {
   const fetchReferralCode = async () => {  //need to rewrite this simply as as check if wallet exists
     if (!address) return;
 
-    const storedReferralCode = localStorage.getItem("referredBy");
-
     const options = {
       walletAddress: address,
     };
@@ -76,15 +74,7 @@ function HomeComponent() {
         const bodyObject = JSON.parse(response.data.body);
         console.log(bodyObject);
         setReferralCode(bodyObject.referralCode);
-
-        if(localStorage.getItem("freeMonths")){ //this is not a good solution but it works for now. I have absolutely no clue as to why it returns 3 months at first, then 6 months. It's all the same backend function.
-          setFreeMonths(6);
-        } else {
-          setFreeMonths(bodyObject.freeMonths);
-        }
-
-        // Clear the stored referral code after successful signup
-        localStorage.removeItem("referralCode");
+        setFreeMonths(bodyObject.freeMonths);
       }
     } catch (error) {
       console.error("Error fetching referral code:", error);

@@ -81,7 +81,7 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
 
           if (referredBy) {
             payload.referredBy = referredBy;
-            localStorage.setItem("freeMonths", "6");
+            localStorage.setItem("freeMonths", "6"); ///would like to remove this line and just do the check on the reload
           }
 
           const response = await axios.post(
