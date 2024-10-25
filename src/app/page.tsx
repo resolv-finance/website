@@ -41,7 +41,7 @@ function HomeComponent() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    console.log('v:1.1.1')  //version number for tracking builds
+    console.log('v:1.1.2')  //version number for tracking builds
     const urlReferredByCode = searchParams.get("referredBy");
     if (urlReferredByCode) {
       localStorage.setItem("referredBy", urlReferredByCode);
@@ -66,15 +66,19 @@ function HomeComponent() {
 
     try {
       const response = await axios.post(
-        `${REFERRAL_TRACKER_URL}/wallet-referral-system`,
+        `${REFERRAL_TRACKER_URL}/checkIfWalletExists`,
         options
       );
 
+      console.log(response.data);
+
       if (response.status === 200 || response.status === 201) {
         const bodyObject = JSON.parse(response.data.body);
-        console.log(bodyObject);
-        setReferralCode(bodyObject.referralCode);
-        setFreeMonths(bodyObject.freeMonths);
+        console.log(bodyObject.returnData.freeMonths);  //ill update this in a few, needs a fix on the back end
+        setReferralCode(bodyObject.returnData.referralCode);
+        console.log(bodyObject.returnData.freeMonths)
+        setFreeMonths(bodyObject.returnData.freeMonths);
+        setEmail(bodyObject.returnData.email);
       }
     } catch (error) {
       console.error("Error fetching referral code:", error);
