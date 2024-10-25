@@ -57,7 +57,7 @@ function HomeComponent() {
     }
   }, [address]);
 
-  const fetchReferralCode = async () => {  //need to rewrite this simply as as check if wallet exists
+  const fetchReferralCode = async () => {  //I need to modify this slightly as sometimes it returns bad data
     if (!address) return;
 
     const options = {
