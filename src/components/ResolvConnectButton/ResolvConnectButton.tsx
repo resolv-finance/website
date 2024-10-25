@@ -8,6 +8,8 @@ import { twMerge } from "tailwind-merge";
 import { useAccount, useDisconnect } from 'wagmi';
 import axios from 'axios';
 import Image from "../../../node_modules/next/image";
+import { REFERRAL_TRACKER_URL } from "@/utils/constants";
+
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -83,7 +85,7 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
           }
 
           const response = await axios.post(
-            'https://dkq9ddk2fc.execute-api.us-east-1.amazonaws.com/Prod/wallet-referral-system',
+            `${REFERRAL_TRACKER_URL}/wallet-referral-system`,
             payload
           );
 

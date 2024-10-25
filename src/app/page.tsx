@@ -43,7 +43,6 @@ function HomeComponent() {
   useEffect(() => {
     console.log('v:1.1.1')  //version number for tracking builds
     const urlReferredByCode = searchParams.get("referredBy");
-    console.log("Referral code:", urlReferredByCode);
     if (urlReferredByCode) {
       localStorage.setItem("referredBy", urlReferredByCode);
     }
@@ -58,17 +57,14 @@ function HomeComponent() {
     }
   }, [address]);
 
-  const fetchReferralCode = async () => {
+  const fetchReferralCode = async () => {  //need to rewrite this simply as as check if wallet exists
     if (!address) return;
 
-    const storedReferralCode = localStorage.getItem("referralCode");
+    const storedReferralCode = localStorage.getItem("referredBy");
 
     const options = {
       walletAddress: address,
-      referredBy: storedReferralCode || undefined,
     };
-
-    console.log("Sending request with options", options);
 
     try {
       const response = await axios.post(
