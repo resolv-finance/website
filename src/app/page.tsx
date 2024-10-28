@@ -79,6 +79,7 @@ function HomeComponent() {
         const bodyObject = JSON.parse(response.data.body);
         console.log(bodyObject);
         setReferralCode(bodyObject.referralCode);
+        setEmail(bodyObject.email);
         setFreeMonths(bodyObject.freeMonths);
 
         // Clear the stored referral code after successful signup
