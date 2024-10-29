@@ -157,7 +157,7 @@ function HomeComponent() {
         <h2
           className={`${inter.className} text-center mb-16 font-regular text-2xl`}
         >
-          Become an early adopter and connect your wallet to get $250,000 in
+          Become an early adopter and connect your wallet to get 3 months in
           free protection upon release.
         </h2>
 
