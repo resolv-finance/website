@@ -41,7 +41,7 @@ function HomeComponent() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    console.log('v:1.1.2')  //version number for tracking builds
+    console.log('v:1.1.3')  //version number for tracking builds
     const urlReferredByCode = searchParams.get("referredBy");
     if (urlReferredByCode) {
       localStorage.setItem("referredBy", urlReferredByCode);
@@ -87,6 +87,22 @@ function HomeComponent() {
 
   return (
     <div>
+       <head>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-H8RWV4CDQD"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-H8RWV4CDQD');
+            `,
+          }}
+        />
+      </head>
       <header className="flex justify-between w-full max-w-[900px] mx-auto px-10">
         <div className="flex items-center">
           <Image src={Logo} alt="Resolv" className="w-h-logo" />
