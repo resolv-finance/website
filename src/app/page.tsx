@@ -28,6 +28,7 @@ import { ProfileDropdown } from "@/components/ProfileDropdown";
 import { REFERRAL_TRACKER_URL } from "@/utils/constants";
 import { TwitterLogo, LinkedinLogo, DiscordLogo } from "@phosphor-icons/react";
 import { XLogo } from "@phosphor-icons/react/dist/ssr";
+import { v4 as uuidv4 } from "uuid";  // For generating session IDs
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -41,7 +42,51 @@ function HomeComponent() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    console.log('v:1.1.3')  //version number for tracking builds
+    console.log('v:1.1.4')  //version number for tracking builds
+
+    // Step 1: Capture UTM parameters from the URL
+    const utmSource = searchParams.get("utm_source") || "direct";
+    const utmMedium = searchParams.get("utm_medium") || "none";
+    const utmCampaign = searchParams.get("utm_campaign") || "none";
+    const utmTerm = searchParams.get("utm_term") || "";
+    const utmContent = searchParams.get("utm_content") || "";
+    const pageReferrer = document.referrer || "";
+
+    // Step 2: Generate a session ID
+    const sessionId = uuidv4();
+
+    // Step 3: Store the session data temporarily in local storage
+    localStorage.setItem("sessionId", sessionId);
+    localStorage.setItem("utm_source", utmSource);
+    localStorage.setItem("utm_medium", utmMedium);
+    localStorage.setItem("utm_campaign", utmCampaign);
+    localStorage.setItem("utm_term", utmTerm);
+    localStorage.setItem("utm_content", utmContent);
+
+    // Step 4: Send the session data to DynamoDB via API
+    const sendSessionData = async () => {
+      try {
+        await axios.post("https://dkq9ddk2fc.execute-api.us-east-1.amazonaws.com/Prod/ad-tracking-landing-page", {
+          sessionId,
+          timestamp: new Date().toISOString(),
+          utmSource,
+          utmMedium,
+          utmCampaign,
+          utmTerm,
+          utmContent,
+          pageReferrer,
+          isWalletConnected: false,  // initially false
+        });
+        console.log("Session data sent successfully");
+      } catch (error) {
+        console.error("Error sending session data:", error);
+      }
+    };
+
+    // Call the function to send session data
+    sendSessionData();
+
+
     const urlReferredByCode = searchParams.get("referredBy");
     if (urlReferredByCode) {
       localStorage.setItem("referredBy", urlReferredByCode);
@@ -85,9 +130,11 @@ function HomeComponent() {
     }
   };
 
+
+
   return (
     <div>
-       <head>
+      <head>
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-H8RWV4CDQD"
