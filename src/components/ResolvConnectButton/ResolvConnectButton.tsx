@@ -82,7 +82,7 @@ const ResolvConnectButton = ({ styles, icon }: { styles: string, icon?: string }
         try {
 
           const sessionId = localStorage.getItem("sessionId") || uuidv4();
-          const adSource = localStorage.getItem("ad_source"); // Retrieve utm_id as adSource from localStorage
+          const adSource = localStorage.getItem("utm_id"); // Retrieve utm_id as adSource from localStorage
 
           const payload = {
             walletAddress: address,
