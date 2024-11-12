@@ -32,9 +32,25 @@ import { v4 as uuidv4 } from "uuid";  // For generating session IDs
 
 const inter = Inter({ subsets: ["latin"] });
 
+interface SessionData {
+  sessionId: string;
+  timestamp: string;
+  utmSource: string;
+  utmMedium: string;
+  utmCampaign: string;
+  utmTerm: string;
+  utmContent: string;
+  pageReferrer: string;
+  isWalletConnected: boolean;
+  walletAddress: string | null;
+  isReturningUser: boolean;
+  isReturningVisitor: boolean;
+}
+
 function HomeComponent() {
   const [email, setEmail] = useState<string>("");
   const [isWalletConnected, setIsWalletConnected] = useState<boolean>(false);
+  const [isReturningUser, setIsReturningUser] = useState<boolean>(false);
   const [referralCode, setReferralCode] = useState<string>("");
   const [freeMonths, setFreeMonths] = useState<number>(3);
 
@@ -42,7 +58,7 @@ function HomeComponent() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    console.log('v:1.1.4')  //version number for tracking builds
+    console.log('v:1.1.5')  //version number for tracking builds
 
     // Step 1: Capture UTM parameters from the URL
     const utmSource = searchParams.get("utm_source") || "direct";
@@ -52,10 +68,9 @@ function HomeComponent() {
     const utmContent = searchParams.get("utm_content") || "";
     const pageReferrer = document.referrer || "";
 
-    // Step 2: Generate a session ID
-    const sessionId = uuidv4();
+    const sessionId = localStorage.getItem("sessionId") || uuidv4();
+    const isReturningVisitor = !!localStorage.getItem("sessionId"); // True if sessionId is already in localStorage
 
-    // Step 3: Store the session data temporarily in local storage
     localStorage.setItem("sessionId", sessionId);
     localStorage.setItem("utm_source", utmSource);
     localStorage.setItem("utm_medium", utmMedium);
@@ -63,28 +78,20 @@ function HomeComponent() {
     localStorage.setItem("utm_term", utmTerm);
     localStorage.setItem("utm_content", utmContent);
 
-    // Step 4: Send the session data to DynamoDB via API
-    const sendSessionData = async () => {
-      try {
-        await axios.post("https://dkq9ddk2fc.execute-api.us-east-1.amazonaws.com/Prod/ad-tracking-landing-page", {
-          sessionId,
-          timestamp: new Date().toISOString(),
-          utmSource,
-          utmMedium,
-          utmCampaign,
-          utmTerm,
-          utmContent,
-          pageReferrer,
-          isWalletConnected: false,  // initially false
-        });
-        console.log("Session data sent successfully");
-      } catch (error) {
-        console.error("Error sending session data:", error);
-      }
-    };
-
-    // Call the function to send session data
-    sendSessionData();
+    sendSessionData({
+      sessionId,
+      timestamp: new Date().toISOString(),
+      utmSource,
+      utmMedium,
+      utmCampaign,
+      utmTerm,
+      utmContent,
+      pageReferrer,
+      isWalletConnected: false,
+      walletAddress: null,
+      isReturningUser,
+      isReturningVisitor
+    });
 
 
     const urlReferredByCode = searchParams.get("referredBy");
@@ -96,37 +103,58 @@ function HomeComponent() {
   useEffect(() => {
     if (address) {
       setIsWalletConnected(true);
-      fetchReferralCode();
+      checkIfWalletExists();  // Check if user is returning when a wallet is connected
     } else {
       setIsWalletConnected(false);
     }
   }, [address]);
 
-  const fetchReferralCode = async () => {  //I need to modify this slightly as sometimes it returns bad data
+  const checkIfWalletExists = async () => {
     if (!address) return;
 
-    const options = {
-      walletAddress: address,
-    };
-
+    const options = { walletAddress: address };
     try {
-      const response = await axios.post(
-        `${REFERRAL_TRACKER_URL}/checkIfWalletExists`,
-        options
-      );
-
-      console.log(response.data);
+      const response = await axios.post(`${REFERRAL_TRACKER_URL}/checkIfWalletExists`, options);
 
       if (response.status === 200 || response.status === 201) {
         const bodyObject = JSON.parse(response.data.body);
-        console.log(bodyObject.returnData.freeMonths);  //ill update this in a few, needs a fix on the back end
+        
+        if (bodyObject.returnData.walletExists) {
+          setIsReturningUser(true);  // Set as returning user
+        } else {
+          setIsReturningUser(false);
+        }
+
         setReferralCode(bodyObject.returnData.referralCode);
-        console.log(bodyObject.returnData.freeMonths)
         setFreeMonths(bodyObject.returnData.freeMonths);
         setEmail(bodyObject.returnData.email);
+        
+        // Resend session data after check
+        sendSessionData({
+          sessionId: localStorage.getItem("sessionId") || uuidv4(),
+          timestamp: new Date().toISOString(),
+          utmSource: localStorage.getItem("utm_source") || "direct",
+          utmMedium: localStorage.getItem("utm_medium") || "none",
+          utmCampaign: localStorage.getItem("utm_campaign") || "none",
+          utmTerm: localStorage.getItem("utm_id") || "",
+          pageReferrer: document.referrer || "",
+          isWalletConnected: true,
+          walletAddress: address,
+          isReturningUser: bodyObject.returnData.walletExists,
+          isReturningVisitor: true
+        });
       }
     } catch (error) {
       console.error("Error fetching referral code:", error);
+    }
+  };
+
+  const sendSessionData = async (data: SessionData) => {
+    try {
+      await axios.post("https://dkq9ddk2fc.execute-api.us-east-1.amazonaws.com/Prod/ad-tracking-landing-page", data);
+      console.log("Session data sent successfully");
+    } catch (error) {
+      console.error("Error sending session data:", error);
     }
   };
 
