@@ -58,13 +58,13 @@ function HomeComponent() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    console.log('v:1.1.5')  //version number for tracking builds
+    console.log('v:1.1.6')  //version number for tracking builds
 
     // Step 1: Capture UTM parameters from the URL
     const utmSource = searchParams.get("utm_source") || "direct";
     const utmMedium = searchParams.get("utm_medium") || "none";
     const utmCampaign = searchParams.get("utm_campaign") || "none";
-    const utmTerm = searchParams.get("utm_term") || "";
+    const utmTerm = searchParams.get("utm_id") || "";
     const utmContent = searchParams.get("utm_content") || "";
     const pageReferrer = document.referrer || "";
 
@@ -75,7 +75,7 @@ function HomeComponent() {
     localStorage.setItem("utm_source", utmSource);
     localStorage.setItem("utm_medium", utmMedium);
     localStorage.setItem("utm_campaign", utmCampaign);
-    localStorage.setItem("utm_term", utmTerm);
+    localStorage.setItem("utm_id", utmId);
     localStorage.setItem("utm_content", utmContent);
 
     sendSessionData({
@@ -136,7 +136,7 @@ function HomeComponent() {
           utmSource: localStorage.getItem("utm_source") || "direct",
           utmMedium: localStorage.getItem("utm_medium") || "none",
           utmCampaign: localStorage.getItem("utm_campaign") || "none",
-          utmTerm: localStorage.getItem("utm_id") || "",
+          utmId: localStorage.getItem("utm_id") || "",
           pageReferrer: document.referrer || "",
           isWalletConnected: true,
           walletAddress: address,
