@@ -58,7 +58,7 @@ function HomeComponent() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    console.log('v:1.1.6')  //version number for tracking builds
+    console.log('v:1.2.0')  //version number for tracking builds
 
     // Step 1: Capture UTM parameters from the URL
     const utmSource = searchParams.get("utm_source") || "direct";

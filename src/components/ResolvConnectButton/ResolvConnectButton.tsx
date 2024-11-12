@@ -9,6 +9,7 @@ import { useAccount, useDisconnect } from 'wagmi';
 import axios from 'axios';
 import Image from "../../../node_modules/next/image";
 import { REFERRAL_TRACKER_URL } from "@/utils/constants";
+import { v4 as uuidv4 } from "uuid";  
 
 
 export function cn(...inputs: ClassValue[]) {
@@ -80,10 +81,17 @@ const ResolvConnectButton = ({ styles, icon }: { styles: string, icon?: string }
       if (address) {
         try {
 
-          const payload: any = {
+          const sessionId = localStorage.getItem("sessionId") || uuidv4();
+          const adSource = localStorage.getItem("ad_source"); // Retrieve utm_id as adSource from localStorage
+
+          const payload = {
             walletAddress: address,
-            ipAddress: ipAddress
+            ipAddress,
+            sessionId,    // Pass sessionId
+            adSource,     // Pass adSource
+            referredBy: referredBy || undefined, // Optional referredBy if present
           };
+
 
           if (referredBy) {
             payload.referredBy = referredBy;
