@@ -38,7 +38,7 @@ interface SessionData {
   utmSource: string;
   utmMedium: string;
   utmCampaign: string;
-  utmTerm: string;
+  utmId: string;
   utmContent: string;
   pageReferrer: string;
   isWalletConnected: boolean;
@@ -64,7 +64,7 @@ function HomeComponent() {
     const utmSource = searchParams.get("utm_source") || "direct";
     const utmMedium = searchParams.get("utm_medium") || "none";
     const utmCampaign = searchParams.get("utm_campaign") || "none";
-    const utmTerm = searchParams.get("utm_id") || "";
+    const utmId = searchParams.get("utm_id") || "";
     const utmContent = searchParams.get("utm_content") || "";
     const pageReferrer = document.referrer || "";
 
@@ -84,7 +84,7 @@ function HomeComponent() {
       utmSource,
       utmMedium,
       utmCampaign,
-      utmTerm,
+      utmId,
       utmContent,
       pageReferrer,
       isWalletConnected: false,
@@ -137,6 +137,7 @@ function HomeComponent() {
           utmMedium: localStorage.getItem("utm_medium") || "none",
           utmCampaign: localStorage.getItem("utm_campaign") || "none",
           utmId: localStorage.getItem("utm_id") || "",
+          utmContent: localStorage.getItem("utm_content") || "",
           pageReferrer: document.referrer || "",
           isWalletConnected: true,
           walletAddress: address,
