@@ -15,15 +15,21 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) => {
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+  }
+}
+
+const ResolvConnectButton = ({ styles, icon }: { styles: string, icon?: string }) => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [doesWalletExist, setDoesWalletExist] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [ipAddress, setIpAddress] = useState<string | null>(null);
   const [referredBy, setReferredBy] = useState<string | null>(null);
   const account = useAccount();
-  const {address} = account
-  const {disconnect} = useDisconnect()
+  const { address } = account
+  const { disconnect } = useDisconnect()
 
   useEffect(() => {
     setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
@@ -95,6 +101,13 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
           if (!exists) {
             localStorage.setItem('walletAddress', address);
           }
+
+          // Send Google Analytics event for wallet connection
+          window.gtag('event', 'wallet_connection', {
+            event_category: 'User Actions',
+            event_label: 'Wallet Connected',
+            value: 1,
+          });
         } catch (error) {
           console.error('Error checking wallet:', error);
           disconnect();
@@ -136,20 +149,20 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
             {(() => {
               if (!connected) {
                 return (
-                    <button
-                      onClick={openConnectModal}
-                      type="button"
-                      className={cn(styles, "flex gap-2")}
-                    >
-                      <div className="h-[50%] flex items-center"> {/* Container for the icon */}
-                        {icon && <Image 
-                          src={icon!} 
-                          alt="icon" 
-                          className="h-full w-auto transform rotate-12" // Make height 100% of parent (which is 80% of button height)
-                        />}
-                      </div>
-                      Connect Wallet
-                    </button>
+                  <button
+                    onClick={openConnectModal}
+                    type="button"
+                    className={cn(styles, "flex gap-2")}
+                  >
+                    <div className="h-[50%] flex items-center"> {/* Container for the icon */}
+                      {icon && <Image
+                        src={icon!}
+                        alt="icon"
+                        className="h-full w-auto transform rotate-12" // Make height 100% of parent (which is 80% of button height)
+                      />}
+                    </div>
+                    Connect Wallet
+                  </button>
                 );
               }
               if (chain.unsupported) {
