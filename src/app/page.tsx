@@ -28,6 +28,7 @@ import { ProfileDropdown } from "@/components/ProfileDropdown";
 import { REFERRAL_TRACKER_URL } from "@/utils/constants";
 import { TwitterLogo, LinkedinLogo, DiscordLogo } from "@phosphor-icons/react";
 import { XLogo } from "@phosphor-icons/react/dist/ssr";
+import WaitlistConnect from "@/components/WaitlistConnect";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -41,10 +42,10 @@ function HomeComponent() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const urlReferralCode = searchParams.get("referralCode");
-    console.log("Referral code:", urlReferralCode);
-    if (urlReferralCode) {
-      localStorage.setItem("referralCode", urlReferralCode);
+    console.log("v:1.1.2"); //version number for tracking builds
+    const urlReferredByCode = searchParams.get("referredBy");
+    if (urlReferredByCode) {
+      localStorage.setItem("referredBy", urlReferredByCode);
     }
   }, [searchParams]);
 
@@ -58,32 +59,28 @@ function HomeComponent() {
   }, [address]);
 
   const fetchReferralCode = async () => {
+    //I need to modify this slightly as sometimes it returns bad data
     if (!address) return;
-
-    const storedReferralCode = localStorage.getItem("referralCode");
 
     const options = {
       walletAddress: address,
-      referredBy: storedReferralCode || undefined,
     };
-
-    console.log("Sending request with options", options);
 
     try {
       const response = await axios.post(
-        `${REFERRAL_TRACKER_URL}/wallet-referral-system`,
+        `${REFERRAL_TRACKER_URL}/checkIfWalletExists`,
         options
       );
 
+      console.log(response.data);
+
       if (response.status === 200 || response.status === 201) {
         const bodyObject = JSON.parse(response.data.body);
-        console.log(bodyObject);
-        setReferralCode(bodyObject.referralCode);
-        setEmail(bodyObject.email);
-        setFreeMonths(bodyObject.freeMonths);
-
-        // Clear the stored referral code after successful signup
-        localStorage.removeItem("referralCode");
+        console.log(bodyObject.returnData.freeMonths); //ill update this in a few, needs a fix on the back end
+        setReferralCode(bodyObject.returnData.referralCode);
+        console.log(bodyObject.returnData.freeMonths);
+        setFreeMonths(bodyObject.returnData.freeMonths);
+        setEmail(bodyObject.returnData.email);
       }
     } catch (error) {
       console.error("Error fetching referral code:", error);
@@ -166,17 +163,7 @@ function HomeComponent() {
           free protection upon release.
         </h2>
 
-        {isWalletConnected == false && (
-          <div className="flex items-center justify-center mb-16">
-            <div className="relative inline-block">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-green-200 rounded-full blur-sm"></div>
-              <ResolvConnectButton
-                icon={WalletIcon}
-                styles="relative h-[64px] px-6 py-3 bg-gradient-to-r from-[#D1FFE7] to-[#D0EAFF] shadow-resolv-button rounded-full text-gray-800 font-semibold flex items-center space-x-2 shadow-md transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] hover:translate-y-[1px] hover:shadow-none focus:outline-none"
-              />
-            </div>
-          </div>
-        )}
+        {isWalletConnected == false && <WaitlistConnect />}
 
         {isWalletConnected && !email && <EmailInput onEmailSubmit={setEmail} />}
 

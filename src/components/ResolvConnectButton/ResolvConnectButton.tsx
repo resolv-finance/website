@@ -6,8 +6,10 @@ import "./ResolvConnectButton.css";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { useAccount, useDisconnect } from 'wagmi';
-import axios from 'axios'; // Make sure to install axios if not already installed
+import axios from 'axios';
 import Image from "../../../node_modules/next/image";
+import { REFERRAL_TRACKER_URL } from "@/utils/constants";
+
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -17,12 +19,20 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [doesWalletExist, setDoesWalletExist] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [ipAddress, setIpAddress] = useState<string | null>(null);
+  const [referredBy, setReferredBy] = useState<string | null>(null);
   const account = useAccount();
   const {address} = account
   const {disconnect} = useDisconnect()
 
   useEffect(() => {
     setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+
+    // Check for 'referredBy' in localStorage
+    const referralCode = localStorage.getItem('referredBy');
+    if (referralCode) {
+      setReferredBy(referralCode); // Store the referral code if present
+    }
   }, []);
 
   useEffect(() => {
@@ -45,31 +55,58 @@ const ResolvConnectButton = ({styles, icon} : {styles: string, icon?: string}) =
     }
   }, [address]);
 
-  useEffect(() => {
-    if (shouldCheckWallet) {
-      const checkWalletExists = async () => {
-        if (address) {
-          try {
-            console.log("Calling backend");
-            const response = await axios.post('https://dkq9ddk2fc.execute-api.us-east-1.amazonaws.com/Prod/checkIfWalletExists', { walletAddress: address });
-            const { exists } = response.data;
-            console.log(response.data);
-            setDoesWalletExist(exists);
-            if (!exists) {
-              localStorage.setItem('walletAddress', address);
-              const response = await axios.post('https://dkq9ddk2fc.execute-api.us-east-1.amazonaws.com/Prod/add-wallet', { walletAddress: address });
-              console.log(response.data);
-            } 
-          } catch (error) {
-            console.error('Error checking wallet:', error);
-            disconnect();
-          }
-        }
-      };
 
-      checkWalletExists();
-      setShouldCheckWallet(false);
-    }
+  useEffect(() => {
+    const fetchIpAddress = async () => {
+      try {
+        const response = await axios.get('https://api.ipify.org?format=json');
+        setIpAddress(response.data.ip);
+      } catch (error) {
+        console.error('Error fetching IP address:', error);
+      }
+    };
+
+    fetchIpAddress();
+  }, []);
+
+  useEffect(() => {
+    const checkWalletExists = async () => {
+      if (address) {
+        try {
+
+          const payload: any = {
+            walletAddress: address,
+            ipAddress: ipAddress
+          };
+
+          if (referredBy) {
+            payload.referredBy = referredBy;
+            localStorage.setItem("freeMonths", "6"); ///would like to remove this line and just do the check on the reload
+          }
+
+          const response = await axios.post(
+            `${REFERRAL_TRACKER_URL}/wallet-referral-system`,
+            payload
+          );
+
+          const { exists } = response.data;
+          setDoesWalletExist(exists);
+
+          if (!exists) {
+            localStorage.setItem('walletAddress', address);
+          }
+        } catch (error) {
+          console.error('Error checking wallet:', error);
+          disconnect();
+        }
+      } else {
+        console.log('Address not available yet');
+      }
+    };
+
+
+    checkWalletExists();
+    setShouldCheckWallet(false);
   }, [shouldCheckWallet, address, disconnect]);
 
   return (
