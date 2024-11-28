@@ -37,6 +37,7 @@ function HomeComponent() {
   const [isWalletConnected, setIsWalletConnected] = useState<boolean>(false);
   const [referralCode, setReferralCode] = useState<string>("");
   const [freeMonths, setFreeMonths] = useState<number>(3);
+  const [showWaitlistConnect, setShowWaitlistConnect] = useState(true);
 
   const { address } = useAccount();
   const searchParams = useSearchParams();
@@ -142,7 +143,7 @@ function HomeComponent() {
       </header>
 
       <div className="container px-10 md:px-0 mt-24">
-        {isWalletConnected && (
+        {isWalletConnected && email && (
           <div className="flex items-center justify-center mb-2">
             <div className="relative inline-block">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-green-200 rounded-full blur-sm"></div>
@@ -163,9 +164,9 @@ function HomeComponent() {
           free protection upon release.
         </h2>
 
-        {isWalletConnected == false && <WaitlistConnect />}
-
-        {isWalletConnected && !email && <EmailInput onEmailSubmit={setEmail} />}
+        {!isWalletConnected && showWaitlistConnect ? (
+          <WaitlistConnect onSuccess={() => setShowWaitlistConnect(false)} />
+        ) : null}
 
         <Sponsors />
 

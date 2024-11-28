@@ -21,6 +21,7 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { MasterDataContext } from "./MasterDataProvider";
 import { SUPPORTED_CHAINS } from "@/utils/constants";
 import { _chains } from "@rainbow-me/rainbowkit/dist/config/getDefaultConfig";
+import { EmailProvider } from "./EmailContext";
 
 export function WalletContextProvider({ children }: { children?: any }) {
   const [chainConfig, setChainConfig] = useState<_chains>([
@@ -64,14 +65,16 @@ export function WalletContextProvider({ children }: { children?: any }) {
   const queryClient = new QueryClient();
 
   return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider coolMode>
-          <div className="flex relative items-start h-screen overflow-hidden justify-between pt-8 px-8 sm:pr-16 sm:pl-8">
-            {children}
-          </div>
-        </RainbowKitProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
+    <EmailProvider>
+      <WagmiProvider config={config}>
+        <QueryClientProvider client={queryClient}>
+          <RainbowKitProvider coolMode>
+            <div className="flex relative items-start h-screen overflow-hidden justify-between pt-8 px-8 sm:pr-16 sm:pl-8">
+              {children}
+            </div>
+          </RainbowKitProvider>
+        </QueryClientProvider>
+      </WagmiProvider>
+    </EmailProvider>
   );
 }
